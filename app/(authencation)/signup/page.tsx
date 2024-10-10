@@ -3,6 +3,11 @@ import React from 'react';
 import login from '../login/page'
 
 function Page() {
+
+
+
+
+  
   return (
     <div className="relative w-full h-screen">
   
