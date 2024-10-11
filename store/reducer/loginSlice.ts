@@ -18,11 +18,11 @@ const  initialState : userdetails ={
 
 export const loginUser = createAsyncThunk(
     'login/loginUser',
-    async (userdata: { user: string; password: string }, { rejectWithValue }) => {
+    async (userdata: { username: string; password: string }, { rejectWithValue }) => {
 
 
       try {
-        const response = await axiosintercept.post('/users/login', userdata)
+        const response = await axiosintercept.post('users/login', userdata)
         return response.data
       }
       
