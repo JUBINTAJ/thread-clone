@@ -9,10 +9,11 @@ import search  from '@/Public/img/icons8-search-100 (1).png'
 import user from '@/Public/img/icons8-user-100.png'
 import pin from '@/Public/img/icons8-pin-100.png'
 import menu from '@/Public/img/menu.png'
+
 function page() {
   return (
     <div className='flex'>
-      <nav className='p-4 w-full '>
+      <nav className='p-7 w-full '>
         <div className='flex flex-col items-start justify-start'>
           <div className='mb-4'>
             <Image 
@@ -52,19 +53,12 @@ function page() {
          
 
         </div>
-
-        
       </nav>
-
-   
-
-
- 
-      <Link href='/login'>
+      {/* <Link href='/login'>
             <button className='bg-white text-black border rounded-md w-20 h-8 mt-7 mr-5 justify-center'>
               Log in
             </button>
-          </Link>
+          </Link> */}
     </div> 
   )
 }

@@ -1,11 +1,11 @@
+import axiosInstance from "@/app/axios/axiosinstance";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { axiosintercept } from "@/app/axios/axios";
 
 
 
 interface userdetails {
     user : any | null;
-    status : 'intial' | 'loading' | 'succees' | 'failed' ;
+    status : 'intial' | 'loading' | 'success' | 'failed' ;
     error : string | null
 
 }
@@ -18,11 +18,11 @@ const  initialState : userdetails ={
 
 export const loginUser = createAsyncThunk(
     'login/loginUser',
-    async (userdata: { username: string; password: string }, { rejectWithValue }) => {
+    async (userdata: { username: string; password: string  }, { rejectWithValue }) => {
 
 
       try {
-        const response = await axiosintercept.post('users/login', userdata)
+        const response = await axiosInstance.post('users/login', userdata)
         return response.data
       }
       
@@ -31,11 +31,11 @@ export const loginUser = createAsyncThunk(
       }
     }
   );
+  
 
 
 
 
-//  slice
 
 const loginSlice=createSlice({
     name:'login',
@@ -49,7 +49,7 @@ const loginSlice=createSlice({
             state.status='loading'
            })
       .addCase(loginUser.fulfilled ,(state , action : PayloadAction<any>)=>{
-          state.status="succees";
+          state.status="success";
           state.user=action.payload;
       })
       .addCase(loginUser.rejected ,(state ,action : PayloadAction<any>)=>{
