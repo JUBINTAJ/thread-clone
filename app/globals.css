@@ -46,7 +46,7 @@ body {
   position: absolute;
   width: 6px; 
   height: 6px; 
-  background-color: #171718; 
+  background-color: #665f5f; 
   border-radius: 50%;
   animation: rotate 1.5s linear infinite; 
 }
@@ -93,4 +93,18 @@ body {
   100% {
     transform: translate(-50%, -50%) rotate(360deg) translateX(10px);
   }
+}
+.scrollb {
+  overflow-y: scroll; 
+  max-height: 865px; 
+}
+
+
+.scrollb::-webkit-scrollbar {
+  width: 0; 
+}
+
+
+.scrollb {
+  scrollbar-width: none; 
 }

@@ -70,7 +70,7 @@ const Page: React.FC = () => {
                         />
                         <input
                             type="password"
-                            placeholder="Password"
+                            placeholder="Password 'min 8 char"
                             className="bg-[#201d1d] appearance-none rounded-xl block w-full px-3 py-3 mt-2 placeholder-gray-500 text-white"
                             onChange={(e) => dispatch(setPassword(e.target.value))}
                         />
