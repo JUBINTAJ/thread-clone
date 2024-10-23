@@ -6,21 +6,56 @@ import { RootState, AppDispatch } from '@/store/store';
 import { setname, setusername, setemail, setphone, setPassword, setconformpassword, signUser } from '@/store/reducer/signsSlice';
 import { useRouter } from 'next/navigation';
 import Loading from '@/app/componnts/loading/loading';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import axiosInstance from '@/app/axios/axiosinstance';
 
 
 
 
 const Page: React.FC = () => {
     const [loading ,setloading]=useState(false)
-    const dispatch: AppDispatch = useDispatch();
-    const { name, username, email, phone, password, conformpassword, status, error } = useSelector((state: RootState) => state.sign);
+
+    const[name , setname]=useState("")
+    const[username ,setusername]=useState("")
+    const[email ,setemail]=useState("")
+    const[password ,setPassword]=useState("")
+    const[conformpassword,setconformpassword]=useState("")
+
+
+
+    // const dispatch: AppDispatch = useDispatch();
+    // const { name, username, email, phone, password, conformpassword, status, error } = useSelector((state: RootState) => state.sign);
+
+
+
+     const  signUser = (
+          async  (userdata :{name:string, username:string, email:string, phone:string, password:string, conformpassword:string} )=>{
+    
+            try{
+                const response=await axiosInstance.post('users/signup',userdata)
+                return response.data
+            }catch (error : any){
+                console.log(error.response.data.message || 'all error are occared')
+            }
+    
+    
+          }
+          
+    
+    )
+
+
+
+
+
     const router = useRouter();
 
     const handling = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setloading(true)
         if (password === conformpassword) {
-            dispatch(signUser({ name, username, email, password, phone })).finally(()=>{
+            
+            (signUser:({ name:string, username:string, email:string, password :string, phone:string ,conformpassword:string })).finally(()=>{
                 setloading(false)
             });
         } else {
@@ -33,7 +68,7 @@ const Page: React.FC = () => {
 
             router.push('/login'); 
         }
-    }, [status, router, dispatch, username, password]);
+    }, [status, router, username, password]);
 
     return (
      <div className="relative w-full h-screen">
@@ -44,41 +79,41 @@ const Page: React.FC = () => {
                type="text"
                 placeholder="Name"
               className="bg-[#201d1d] appearance-none rounded-xl w-full block px-3 py-3 mt-2 placeholder-gray-500 text-white"
-                onChange={(e) => dispatch(setname(e.target.value))}
+                onChange={(e) => (setname(e.target.value))}
                     required
                         />
                         <input
                             type="text"
                         placeholder="Username"
                         className="bg-[#201d1d] appearance-none rounded-xl block w-full px-3 py-3 mt-2 placeholder-gray-500 text-white"
-                        onChange={(e) => dispatch(setusername(e.target.value))}
+                        onChange={(e) => (setusername(e.target.value))}
                         required
                         />
                         <input
                             type="email"
                            placeholder="Email"
                          className="bg-[#201d1d] appearance-none rounded-xl block w-full px-3 py-3 mt-2 placeholder-gray-500 text-white"
-                        onChange={(e) => dispatch(setemail(e.target.value))}
+                        onChange={(e) => (setemail(e.target.value))}
                          required
                         />
                         <input
                             type="tel"
                             placeholder="Phone"
                             className="bg-[#201d1d] appearance-none rounded-xl block w-full px-3 py-3 mt-2 placeholder-gray-500 text-white"
-                            onChange={(e) => dispatch(setphone(e.target.value))}
+                            onChange={(e) => (setphone(e.target.value))}
                             required
                         />
                         <input
                             type="password"
                             placeholder="Password 'min 8 char"
                             className="bg-[#201d1d] appearance-none rounded-xl block w-full px-3 py-3 mt-2 placeholder-gray-500 text-white"
-                            onChange={(e) => dispatch(setPassword(e.target.value))}
+                            onChange={(e) => (setPassword(e.target.value))}
                         />
                         <input
                             type="password"
                             placeholder="Confirm Password"
                             className="bg-[#201d1d] appearance-none rounded-xl block w-full px-3 py-3 mt-2 placeholder-gray-500 text-white"
-                            onChange={(e) => dispatch(setconformpassword(e.target.value))}
+                            onChange={(e) => (setconformpassword(e.target.value))}
                             required
                         />
                         <button

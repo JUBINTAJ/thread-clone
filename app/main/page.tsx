@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import therad from  '@/Public/img/threads-logo-w.png'
 import home from "@/Public/img/icons8-home-100.png"
 import like from '@/Public/img/icons8-like-100 (1).png'
@@ -14,8 +14,22 @@ import menu from '@/Public/img/menu.png'
 import { useAppDispatch, useAppSelector } from '../hookkkk/Appdispatch'
 import { fetchPosts } from '@/store/reducer/postssSlice'
 import { fromJSON } from 'postcss'
+import Likebutton from '../componnts/likebutton/likebutton'
+import { FcLike } from "react-icons/fc";
+
 
 function page() {
+
+  const [currentuser,setcurrentuser]=useState<any>(false)
+  const [likee ,setlike]=useState(false)
+
+
+
+
+
+
+
+
 
   const dispatch=useAppDispatch()
   const {posts}=useAppSelector((state)=>state.posts)
@@ -29,6 +43,10 @@ useEffect(()=>{
 
 },[])
 
+
+const handli=()=>{
+  setlike(true)
+}
 
 
 
@@ -48,14 +66,14 @@ useEffect(()=>{
             />
           </div>
 
-          <div className='flex flex-col space-y-4 items-center mt-56'>
+          <div className='flex flex-col space-y-4 items-center mt-56  ' >
             <div className='hover:bg-gray-900 p-2 rounded-xl transition duration-200'>
               <Image src={home} alt='home' className='w-8' />
             </div>
             <div className='hover:bg-gray-900 p-2 rounded-xl transition duration-200'>
               <Image src={like} alt='like' className='w-8' />
             </div>
-            <div className='hover:bg-gray-900 p-2 rounded-xl transition duration-200'>
+            <div className='hover:bg-gray-900 p-2 rounded-xl transition duration-200 '>
               <Image src={plus} alt='plus' className='w-8' />
             </div>
             <div className='hover:bg-gray-900 p-2 rounded-xl transition duration-200'>
@@ -65,6 +83,13 @@ useEffect(()=>{
               <Image src={user} alt='user' className='w-8' />
             </div>
           </div>
+
+
+
+
+
+
+
 
        <div  className='flex flex-col space-y-4 items-center mt-48'>
 
@@ -96,12 +121,33 @@ useEffect(()=>{
       <div className="p-2  "> 
         <p className=' pb-4 pt-2 pl-4'>{post.postById.username}<span> </span></p>
         <p className='pl-5 pb-3'>{post.text}</p>
-        {post.image && <img className='h-[435px] w-full rounded-md  object-cover' src={post.image} alt='post'/>}
+        {post.image && <img className='h-[435px] w-auto rounded-md  object-cover border border-[#3b3b3b] ' src={post.image} alt='post'/>}
+        <div className=''>
+ 
+              {/* <Likebutton 
+                 initialike={post.likes.length}
+                 postId={post._id}
+                 userId={currentuser._id}
+                 likeduser={post.likes}
+              
+              /> */}
+           
+        
+
+        {/* <FcLike/> */}
+
+         <button onClick={handli}>
+         <FcLike  className='w-7 h-10' />
+
+
+         </button>
+
+          
+        </div>
         
       </div>
-      <div className='p-3'>
-
-      </div>
+    
+     
     </div>
  
   ))}

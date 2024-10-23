@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect } from 'react'
 import therad from  '@/Public/img/threads-logo-w.png'
 import home from "@/Public/img/icons8-home-100.png"
 import like from '@/Public/img/icons8-like-100 (1).png'
@@ -9,9 +9,19 @@ import search  from '@/Public/img/icons8-search-100 (1).png'
 import user from '@/Public/img/icons8-user-100.png'
 import pin from '@/Public/img/icons8-pin-100.png'
 import menu from '@/Public/img/menu.png'
+import { useAppDispatch, useAppSelector } from './hookkkk/Appdispatch'
+import { fetchPosts } from '@/store/reducer/postssSlice'
 function page() {
+
+
+
+
+
+
   return (
     <div className='flex'>
+      <div>
+
       <nav className='p-4 w-full '>
         <div className='flex flex-col items-start justify-start'>
           <div className='mb-4'>
@@ -55,11 +65,20 @@ function page() {
 
         
       </nav>
+      </div>
+
+
+
+
+
+
+
+
 
    
 
 
- 
+
       <Link href='/login'>
             <button className='bg-white text-black border rounded-md w-20 h-8 mt-7 mr-5 justify-center'>
               Log in
