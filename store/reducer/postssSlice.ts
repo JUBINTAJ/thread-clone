@@ -78,14 +78,14 @@ import axiosInstance from "@/app/axios/axiosinstance";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
  
 interface User {
-    _id: string;
+    id: string;
     username: string;
     email: string;
     profilePic: string;
 }
 
 interface Post {
-    _id: string;
+    id: string;
     postById: User;
     text: string;
     image?: string;
@@ -95,8 +95,8 @@ interface Post {
     reposts: string[];
 }
 interface PostsState {
-    posts: Post[];
-    post: Post[];
+    posts: Post[] ;
+    post: Post[] ;
     status: "idle" | "loading" | "succeeded" | "failed";
     error: string | null;
 }

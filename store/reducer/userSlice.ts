@@ -3,16 +3,24 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 
 interface logindata {
-    user : string | null;
+    user : any | null;
     password:string;
-    stutas:'initail'|'loading'|'success'|'failed';
+    status:'initail'|'loading'|'success'|'failed';
     error:any | null;
+}
+
+interface update {
+    name: string;
+    username: string;
+    email: string;
+    bio: string;
+    profilePic: string
 }
 
 const initialState : logindata ={
     user:null,
     password: "",
-    stutas:'initail',
+    status:'initail',
     error: null
 }
 
@@ -20,7 +28,7 @@ const initialState : logindata ={
 
 export const  loginUser = createAsyncThunk(
     'login/loginUser',
-      async  (userdata :{user:string, password:string } ,{rejectWithValue})=>{
+      async  (userdata :{username:string, password:string } ,{rejectWithValue})=>{
 
         try{
             const response=await axiosInstance.post('users/login',userdata)
@@ -38,19 +46,42 @@ export const  loginUser = createAsyncThunk(
 
 )
 
+
+
+
+
 export  const fetchUserData = createAsyncThunk ( 
     'user/fetchUserData',
     
-    async (userd,) => {
+    async () => {
     try {
-      const response = await axiosInstance.get('users/',userd);
+      const response = await axiosInstance.get('users/');
       return response.data
 
 
+    }catch(error){
+        console.log("error")
     }
-  };
+});
 
+
+
+
+
+export const userupdate= createAsyncThunk (
+    'user/userupdate',
+    async (updatedata:{    name: string, username: string, email: string, bio: string, profilePic: string},{rejectWithValue})=>{
+        try{
+            const response=await axiosInstance.patch('users/67176859491efeb61435de2c',updatedata)
+            return response.data
+        }catch(error:any){
+             return rejectWithValue('error')
+        }
+    }
 )
+
+
+
 
 
 
@@ -64,31 +95,49 @@ const userSlice=createSlice({
             extraReducers:(builder)=>{
               builder
                 .addCase(loginUser.pending ,(state)=>{
-                    state.stutas='loading'
+                    state.status='loading'
 
                 })
                 .addCase(loginUser.fulfilled ,(state, action : PayloadAction<any> )=>{
 
-                    state.stutas='success'
+                    state.status='success'
                     state.user=action.payload
                 })
                 .addCase(loginUser.rejected ,(state ,action  : PayloadAction<any>)=>{
-                    state.stutas='failed'
+                    state.status='failed'
                     state.error=action.payload
 
                 })
 
+                
+
                 .addCase(fetchUserData.pending ,(state)=>{
-                    state.stutas='loading'
+                    state.status='loading'
 
                 })
                 .addCase(fetchUserData.fulfilled ,(state, action : PayloadAction<any> )=>{
 
-                    state.stutas='success'
+                    state.status='success'
                     state.user=action.payload
                 })
                 .addCase(fetchUserData.rejected ,(state ,action  : PayloadAction<any>)=>{
-                    state.stutas='failed'
+                    state.status='failed'
+                    state.error=action.payload
+
+                })
+
+
+
+                .addCase(userupdate.pending,(state)=>{
+                    state.status='loading'
+                })
+                .addCase(userupdate.fulfilled ,(state, action : PayloadAction<any> )=>{
+
+                    state.status='success'
+                    state.user=action.payload
+                })
+                .addCase(userupdate.rejected ,(state ,action  : PayloadAction<any>)=>{
+                    state.status='failed'
                     state.error=action.payload
 
                 })

@@ -5,34 +5,49 @@ import bg from '../../../Public/img/bg.webp';
 import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '@/app/hookkkk/Appdispatch';
 import { useRouter } from 'next/navigation';
-import { loginUser } from '@/store/reducer/loginSlice';
 import qr from '../../../Public/img/Screenshot 2024-10-15 161102.png';
 import Loading from '@/app/componnts/loading/loading';
+import userSlice, { loginUser } from '@/store/reducer/userSlice'
 
 const Page: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false); 
+
+
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const { user, status, error } = useAppSelector((state) => state.login);
-  console.log(user);
+
+
+  const { user, status, error } = useAppSelector((state) => state.user);
 
   useEffect(() => {
     if (status === 'success' && user) {
-      const userId = user._id;
-      localStorage.setItem('userid', userId);
+      const userId = user.id;
+      localStorage.setItem('user', userId);
       router.push('/main');
     }
   }, [status, user, router]);
 
+
+
+
+
+
   const handling = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true); 
+    
     dispatch(loginUser({ username, password })).finally(() => {
       setLoading(false); 
     });
   };
+
+
+
+
+
+
 
   return (
     <div className="relative w-full h-screen">
