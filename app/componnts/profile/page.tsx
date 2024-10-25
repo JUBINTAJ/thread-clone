@@ -8,14 +8,15 @@ import { useAppDispatch, useAppSelector } from '@/app/hookkkk/Appdispatch'
 import { fetchPosts } from '@/store/reducer/postssSlice'
 import { fromJSON } from 'postcss'
 import { FcLike } from "react-icons/fc";
-import { userupdate } from '@/store/reducer/userSlice'
+import { fetchUserData, userupdate } from '@/store/reducer/userSlice'
 
 
 
 function page() {
 
-  const [currentuser,setcurrentuser]=useState<any>(false)
-  const [likee ,setlike]=useState(false)
+  const[name ,setname]=useState<string>('')
+  const[profilePic,setprofilepic]=useState<string>('')
+  const[username ,setusername]=useState<string>('')
 
 
 
@@ -30,16 +31,24 @@ console.log(user)
 
 
 
+useEffect(()=>{ 
+  const userId=localStorage.getItem('userId')
+  dispatch(fetchUserData(userId))
+
+},[dispatch])
+
+
 useEffect(()=>{
-  // dispatch(fetchPosts())
-  dispatch(userupdate())
-
-},[])
-
-
-const handli=()=>{
-  setlike(true)
-}
+  const userId=localStorage.getItem('userId')
+  if(userId && user.length >0){
+       const users=user.find((user)=>user===userId)
+       if(users){
+        setname(users.name || "")
+        setusername(users.username || "")
+        setprofilepic (users.profilePic || "")
+       }
+  }
+},[user]);
 
 
 
@@ -58,11 +67,7 @@ const handli=()=>{
 
         </div>
             <div className=" border border-[#181818] border-[#3b3b3b]  w-[630px] h-[865px] border-b-0 mt-14   rounded-tl-[30px] rounded-tr-[30px] rounded-bl-none rounded-br-none scrollb " >
-  {user.map((user)=>(
-    <div key={user.id}  className='flex border-[#3b3b3b] border'>
-           
-    </div>
-  ))}
+  
     
 
        </div>
@@ -85,3 +90,5 @@ const handli=()=>{
 }
 
 export default page
+
+

@@ -3,8 +3,9 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 
 interface logindata {
-    user : any | null;
+    user : string;
     password:string;
+    userupdate:update[];
     status:'initail'|'loading'|'success'|'failed';
     error:any | null;
 }
@@ -18,11 +19,13 @@ interface update {
 }
 
 const initialState : logindata ={
-    user:null,
+    user:"",
+    userupdate:[],
     password: "",
     status:'initail',
     error: null
 }
+
 
 
 
@@ -51,12 +54,12 @@ export const  loginUser = createAsyncThunk(
 
 
 export  const fetchUserData = createAsyncThunk ( 
-    'user/fetchUserData',
+    'usersid/fetchUserData',
     
-    async () => {
+    async (userId:string|null) => {
     try {
-      const response = await axiosInstance.get('users/');
-      return response.data
+      const response = await axiosInstance.get(`users/${userId}`);
+      return response.data.user
 
 
     }catch(error){
