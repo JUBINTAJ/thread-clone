@@ -48,7 +48,7 @@ function sidebar() {
     </div>
 
 
-    <Link href={"/componnts/editprofile"}>
+    <Link href={"/componnts/profile"}>
 
     
     <div className='hover:bg-gray-900 p-2 rounded-xl transition duration-200'>
