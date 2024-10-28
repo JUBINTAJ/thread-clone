@@ -2,13 +2,6 @@ import axiosInstance from "@/app/axios/axiosinstance";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 
-interface logindata {
-    user : string;
-    password:string;
-    userupdate:update[];
-    status:'initail'|'loading'|'success'|'failed';
-    error:any | null;
-}
 
 interface update {
     name: string;
@@ -17,6 +10,14 @@ interface update {
     bio: string;
     profilePic: string
 }
+interface logindata {
+    user : any |null;
+    password:string;
+    userupdate:update[];
+    status:'initail'|'loading'|'success'|'failed';
+    error:any | null;
+}
+
 
 const initialState : logindata ={
     user:"",
@@ -25,8 +26,6 @@ const initialState : logindata ={
     status:'initail',
     error: null
 }
-
-
 
 
 export const  loginUser = createAsyncThunk(
@@ -53,19 +52,7 @@ export const  loginUser = createAsyncThunk(
 
 
 
-export  const fetchUserData = createAsyncThunk ( 
-    'usersid/fetchUserData',
-    
-    async (userId:string|null) => {
-    try {
-      const response = await axiosInstance.get(`users/${userId}`);
-      return response.data.user
 
-
-    }catch(error){
-        console.log("error")
-    }
-});
 
 
 
@@ -114,20 +101,6 @@ const userSlice=createSlice({
 
                 
 
-                .addCase(fetchUserData.pending ,(state)=>{
-                    state.status='loading'
-
-                })
-                .addCase(fetchUserData.fulfilled ,(state, action : PayloadAction<any> )=>{
-
-                    state.status='success'
-                    state.user=action.payload
-                })
-                .addCase(fetchUserData.rejected ,(state ,action  : PayloadAction<any>)=>{
-                    state.status='failed'
-                    state.error=action.payload
-
-                })
 
 
 

@@ -35,6 +35,7 @@ const Page: React.FC = () => {
                 const response = await axiosInstance.post('users/signup', userdata)
                 setstatus('success')
                 return response.data
+                console.log(response)
             } catch (error: any) {
                 console.log(error.response.data.message || 'all error are occared')
                 setstatus('failed')

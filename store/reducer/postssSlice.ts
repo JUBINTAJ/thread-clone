@@ -96,24 +96,26 @@ interface Post {
 }
 interface PostsState {
     posts: Post[] ;
-    post: Post[] ;
     status: "idle" | "loading" | "succeeded" | "failed";
     error: string | null;
 }
 const initialState: PostsState = {
     posts: [],
-    post: [],
     status: "idle",
     error: null,
 };
 
 // export const fetchPostsByUserId = createAsyncThunk(
 //     "posts/fetchPostsByUserId",
-//     async (userId: string) => {
+//     async (userId: string | null ) => {
 //         const response = await axiosInstance.get(`/posts/${userId}`);
 //         return response.data.posts;
 //     }
 // );
+
+
+
+
 
 export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
     const response = await axiosInstance.get('/posts');

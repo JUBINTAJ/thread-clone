@@ -3,6 +3,8 @@ import { configureStore } from "@reduxjs/toolkit";
 // import signSlice  from "@/store/reducer/signsSlice"
 import userSlice from  "@/store/reducer/userSlice"
 import postsSlice from '@/store/reducer/postssSlice'
+import postSlice from '@/store/reducer/postSlice'
+import usergetSlice from "@/store/reducer/usergetSlice"
 
 
 export const store= configureStore({
@@ -11,7 +13,9 @@ export const store= configureStore({
       //  login :loginSlice,
       //  sign : signSlice,
        user : userSlice,
-      posts: postsSlice
+      posts: postsSlice,
+      post:postSlice,
+      userget :usergetSlice
     }
 
 })
