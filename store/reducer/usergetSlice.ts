@@ -16,13 +16,13 @@ interface User {
  
 
 interface inti{
-  user:User[]
+  user:User | null
   stutas:'initail'|'loading'|'success'|'failed'
   error:string | null
 
 }
  const initialState : inti = { 
-    user:[],
+    user:null,
     stutas:'initail',
     error:null
      

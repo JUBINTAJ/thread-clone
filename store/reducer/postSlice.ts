@@ -20,7 +20,7 @@ interface Post {
     userId: string;
     username: string;
     postById: User[];
-    profilePic: string;
+    profilePic: string;                                  
     text: string;
     image?: string; 
     likes: number;

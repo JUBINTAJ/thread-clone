@@ -23,8 +23,8 @@ const Page: React.FC = () => {
 
   useEffect(() => {
     if (status === 'success' && user) {
-      const userId = user.id;
-      localStorage.setItem('user', userId);
+      const userid = user._id;
+      localStorage.setItem('userid', userid);
       router.push('/main');
     }
   }, [status, user, router]);

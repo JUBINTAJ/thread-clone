@@ -35,7 +35,7 @@ const Page: React.FC = () => {
                 const response = await axiosInstance.post('users/signup', userdata)
                 setstatus('success')
                 return response.data
-                console.log(response)
+                
             } catch (error: any) {
                 console.log(error.response.data.message || 'all error are occared')
                 setstatus('failed')
@@ -46,33 +46,23 @@ const Page: React.FC = () => {
 
 
     )
-
-
-    interface signdata {
-        name: string;
-        username: string;
-        email: string;
-        password: string;
-        phone: string;
-        conformpassword: string;
-
-    }
+ 
 
 
 
-
-    const handling = (e: React.FormEvent<HTMLFormElement>) => {
+    const handling = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setloading(true)
 
 
-        if (password === conformpassword && password.length > 8 && email.includes("@")) {
+       const res= await 
+    //    (  (password === conformpassword && password.length > 8 && email.includes("@")) 
             signUser({ name, username, email, phone, password })
             if (status === 'success') {
 
                 router.push('/login');
             }
-        }
+        
     }
 
 
