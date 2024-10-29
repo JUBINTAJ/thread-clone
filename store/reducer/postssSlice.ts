@@ -1,77 +1,4 @@
-// import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-// import reducer from "./loginSlice";
-// import axiosInstance from "@/app/axios/axiosinstance";
 
-
-// interface post {
-//     userId:string;
-//     username:string;
-//     email:string;
-//     profilpic:string;
-
-// }
-
-// interface poststate {
-//     posts:post[];
-//     status:'initail'|'loading'|'success'|'failed';
-//     error:string |  null
-// }
-// const initialState : poststate ={
-//     posts:[],
-//     status:'initail',
-//     error: null
-
-// }
-
-
-// export  const fetchdata=createAsyncThunk(
-//     'posts/fetchdata',
-//     async({},{rejectWithValue}) =>{
-//         try{
-//             const response=await axiosInstance.get('post')
-//             return response.data.post
-//         }catch(error:any){
-      
-//             return rejectWithValue (error.response.data.message || "all erroro occuered")
-
-//         }
-//     }
-
-// )
-
-
-
-
-
-
-
-
-
-
-
-// const postssSlice=createSlice({
-//     name:'posts',
-//     initialState,
-//     reducers:{
-
-//     },
-//     extraReducers:(builder)=>{
-//         builder
-//                 .addCase(fetchdata.pending ,(state)=>{
-//                     state.status='loading'
-//                 })
-//                 .addCase(fetchdata.fulfilled ,(state  , action : PayloadAction<any>)=>{
-//                     state.status='success';
-//                     state.posts=action.payload
-//                 })
-//                 .addCase(fetchdata.rejected ,(state , action : PayloadAction<any>)=>{
-//                     state.status='failed'
-//                     state.error=action.payload
-                    
-//                 })
-//     }
-    
-// })
 
 
 import axiosInstance from "@/app/axios/axiosinstance";
@@ -79,7 +6,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
  
 interface User {
     id: string;
-    username: string;
+    username: string ;
     email: string;
     profilePic: string;
 }
@@ -118,7 +45,7 @@ const initialState: PostsState = {
 
 
 export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
-    const response = await axiosInstance.get('/posts');
+    const response = await axiosInstance.get('posts');
     return response.data.posts;
 });
 
@@ -127,7 +54,7 @@ export const addNewPost = createAsyncThunk(
     "posts/addNewPost",
     async (newPost: { userId: string; text: string; image: string }, { rejectWithValue }) => {
         try {
-            const response = await axiosInstance.post('/posts', newPost);
+            const response = await axiosInstance.post('posts', newPost);
             return response.data;
         } catch (error: any) {
             if (error.response) {

@@ -1,3 +1,4 @@
+'use client'
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { FcLike } from "react-icons/fc";
@@ -11,7 +12,7 @@ interface likeprops{
 }
 
 
-const likebutton =({initialike,userId,postId,likeduser}:likeprops)=>{
+const likebutton =({initialike,userId,postId,likeduser}:likeprops)=> {
     const[like,setlike]=useState((initialike))
     const[liked,setliked]=useState(false)
     useEffect(()=>{
@@ -20,7 +21,7 @@ const likebutton =({initialike,userId,postId,likeduser}:likeprops)=>{
         }
 
 
-    },[likeduser,setliked])
+    },[likeduser,userId])
 
     const handlelike=async()=>{
         const updatelike=liked? like-1 :like+1
@@ -34,6 +35,7 @@ const likebutton =({initialike,userId,postId,likeduser}:likeprops)=>{
 
 
                 const response = await axios.post(Epoint,{userId})
+                console.log(response)
                 
         }
          catch  (error:any){
@@ -41,6 +43,10 @@ const likebutton =({initialike,userId,postId,likeduser}:likeprops)=>{
              setliked(liked)
          }
     }
+    <button onClick={handlelike}>
+<FcLike/>{like}
+
+    </button>
 
 
 }
