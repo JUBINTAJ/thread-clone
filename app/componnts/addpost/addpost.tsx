@@ -1,3 +1,4 @@
+'use client'
 import axiosInstance from '@/app/axios/axiosinstance';
 import axios from 'axios';
 import React, { ReactNode, useState } from 'react'

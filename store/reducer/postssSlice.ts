@@ -32,13 +32,6 @@ const initialState: PostsState = {
     error: null,
 };
 
-// export const fetchPostsByUserId = createAsyncThunk(
-//     "posts/fetchPostsByUserId",
-//     async (userId: string | null ) => {
-//         const response = await axiosInstance.get(`/posts/${userId}`);
-//         return response.data.posts;
-//     }
-// );
 
 
 
@@ -50,40 +43,28 @@ export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
 });
 
 
-export const addNewPost = createAsyncThunk(
-    "posts/addNewPost",
-    async (newPost: { userId: string; text: string; image: string }, { rejectWithValue }) => {
-        try {
-            const response = await axiosInstance.post('posts', newPost);
-            return response.data;
-        } catch (error: any) {
-            if (error.response) {
-                return rejectWithValue(error.response.data);
-            } else {
-                return rejectWithValue({ message: 'Failed to add new post' });
-            }
-        }
-    }
-);
+// export const addNewPost = createAsyncThunk(
+//     "posts/addNewPost",
+//     async (newPost: { userId: string; text: string; image: string }, { rejectWithValue }) => {
+//         try {
+//             const response = await axiosInstance.post('posts', newPost);
+//             return response.data;
+//         } catch (error: any) {
+//             if (error.response) {
+//                 return rejectWithValue(error.response.data);
+//             } else {
+//                 return rejectWithValue({ message: 'Failed to add new post' });
+//             }
+//         }
+//     }
+// );
 const postsSlice = createSlice({
     name: "posts",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
-            // .addCase(fetchPostsByUserId.pending,(state) => {
-            //     state.status = "loading";
-            //     state.error = null;
-            // })
-            // .addCase(fetchPostsByUserId.fulfilled, (state, action: PayloadAction<Post[]>) => {
-            //     state.status = "succeeded";
-            //     state.post = action.payload;
-            // })
-            // .addCase(fetchPostsByUserId.rejected, (state, action) => {
-            //     state.status = "failed";
-            //     state.error = action.error.message || "Error";
-            // })
-
+     
 
 
             .addCase(fetchPosts.pending, (state) => {
@@ -101,18 +82,18 @@ const postsSlice = createSlice({
 
 
 
-            .addCase(addNewPost.pending, (state) => {
-                state.status = "loading";
-                state.error = null;
-            })
-            .addCase(addNewPost.fulfilled, (state, action: PayloadAction<Post>) => {
-                state.status = "succeeded";
-                state.posts.unshift(action.payload);
-            })
-            .addCase(addNewPost.rejected, (state, action) => {
-                state.status = "failed";
-                state.error = action.error.message || "Error";
-            });
+            // .addCase(addNewPost.pending, (state) => {
+            //     state.status = "loading";
+            //     state.error = null;
+            // })
+            // .addCase(addNewPost.fulfilled, (state, action: PayloadAction<Post>) => {
+            //     state.status = "succeeded";
+            //     state.posts.unshift(action.payload);
+            // })
+            // .addCase(addNewPost.rejected, (state, action) => {
+            //     state.status = "failed";
+            //     state.error = action.error.message || "Error";
+            // });
     },
 });
 

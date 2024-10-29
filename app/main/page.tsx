@@ -19,24 +19,30 @@ import { FcLike } from "react-icons/fc";
 import Sidebar from '../componnts/sidebar/sidebar'
 import Addpost from "@/app/componnts/addpost/addpost"
 import { fetchUser } from '@/store/reducer/usergetSlice'
+import { useRouter } from 'next/navigation'
 
 
 
 function page() {
 
-  // const [currentuser,setcurrentuser]=useState<any>(false)
   const [likee ,setlike]=useState(false)
   const[onopen ,setonopen]=useState(false)
 
 
 
 
-
+const logout=(()=>{
+  localStorage.clear()
+  router.push('/login')
+  
+})
 
 
   const dispatch=useAppDispatch()
+  const router=useRouter()
   const {posts}=useAppSelector((state)=>state.posts)
   const{user}=useAppSelector((state)=>state.userget)
+  
 console.log(posts)
 
 
@@ -72,23 +78,23 @@ const handli=()=>{
         </div>
       
    
-            <div className=" border  border-[#3b3b3b]  w-[630px] h-[865px] border-b-0 mt-14   rounded-tl-[30px] rounded-tr-[30px] rounded-bl-none rounded-br-none scrollb " >
+            <div className=" border  border-[#3b3b3b] bg-[2d2d2d] w-[630px] h-[865px] border-b-0 mt-14   rounded-tl-[30px] rounded-tr-[30px] rounded-bl-none rounded-br-none scrollb " >
            
            <div >
             {user && (
               <div key={user.id} >
-                <img src={user.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png"} alt="" />
+                <img className='w-10 ml-6 mt-4 rounded-full object-cover ' src={user.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png"} alt="" />
+                <h1 className='ml-8'>create aff new post</h1>
 
               </div>
             )}
-            <h1 className='post'>create a new post
           <span> <button className='border w-16 h-10 rounded-xl mb-8 ml-[520px] ' onClick={()=>setonopen(true)}> post
      
         </button> </span>
         <Addpost isopen={onopen} onclose={()=>setonopen(false)} >
       <h1>creat a new post</h1>
 
-     </Addpost></h1>
+     </Addpost>
            </div>
            
      
@@ -102,13 +108,13 @@ const handli=()=>{
         {post.image && <img className='h-[435px] w-auto rounded-md  object-cover border border-[#3b3b3b] ' src={post.image} alt='post'/>}
         <div className=''>
  
-              <Likebutton 
+              {/* <Likebutton 
                  initialike={post.likes.length}
                  postId={post.id}
-                //  userId={.id}
+                 userId={.id}
                  likeduser={post.likes}
               
-              />
+              /> */}
            
         
 
@@ -137,7 +143,7 @@ const handli=()=>{
 
 
       <div className='lay-3'>
-        
+        <button onClick={logout}>Log out</button>
       </div>
 
 

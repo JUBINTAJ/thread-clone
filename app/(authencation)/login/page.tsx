@@ -13,6 +13,7 @@ const Page: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false); 
+  
 
 
   const dispatch = useAppDispatch();
@@ -23,7 +24,9 @@ const Page: React.FC = () => {
 
   useEffect(() => {
     if (status === 'success' && user) {
-      const userid = user.id;
+      const userid = user._id;
+   
+      console.log(user)
       localStorage.setItem('userid', userid);
       router.push('/main');
     }

@@ -11,7 +11,7 @@ interface update {
     profilePic: string
 }
 interface logindata {
-    user : any |null;
+    user : string |any;
     password:string;
     userupdate:update[];
     status:'initail'|'loading'|'success'|'failed';
@@ -62,7 +62,7 @@ export const userupdate= createAsyncThunk (
     'user/userupdate',
     async (updatedata:{    name: string, username: string, email: string, bio: string, profilePic: string},{rejectWithValue})=>{
         try{
-            const response=await axiosInstance.patch('users/67176859491efeb61435de2c',updatedata)
+            const response=await axiosInstance.patch(`users/${localStorage.getItem('userid')}`,updatedata)
             return response.data
         }catch(error:any){
              return rejectWithValue('error')
