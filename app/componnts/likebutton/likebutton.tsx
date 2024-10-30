@@ -2,6 +2,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { FcLike } from "react-icons/fc";
+import like from '@/Public/img/heart (1).png'
 
 
 interface likeprops{

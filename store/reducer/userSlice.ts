@@ -11,7 +11,7 @@ interface update {
     profilePic: string
 }
 interface logindata {
-    user : string |any;
+    user :   any| null;
     password:string;
     userupdate:update[];
     status:'initail'|'loading'|'success'|'failed';
@@ -20,7 +20,7 @@ interface logindata {
 
 
 const initialState : logindata ={
-    user:"",
+    user:null,
     userupdate:[],
     password: "",
     status:'initail',
@@ -58,17 +58,17 @@ export const  loginUser = createAsyncThunk(
 
 
 
-export const userupdate= createAsyncThunk (
-    'user/userupdate',
-    async (updatedata:{    name: string, username: string, email: string, bio: string, profilePic: string},{rejectWithValue})=>{
-        try{
-            const response=await axiosInstance.patch(`users/${localStorage.getItem('userid')}`,updatedata)
-            return response.data
-        }catch(error:any){
-             return rejectWithValue('error')
-        }
-    }
-)
+// export const userupdate= createAsyncThunk (
+//     'user/userupdate',
+//     async (updatedata:{    name: string, username: string, email: string, bio: string, profilePic: string},{rejectWithValue})=>{
+//         try{
+//             const response=await axiosInstance.patch(`users/${localStorage.getItem('userid')}`,updatedata)
+//             return response.data
+//         }catch(error:any){
+//              return rejectWithValue('error')
+//         }
+//     }
+// )
 
 
 
@@ -104,19 +104,19 @@ const userSlice=createSlice({
 
 
 
-                .addCase(userupdate.pending,(state)=>{
-                    state.status='loading'
-                })
-                .addCase(userupdate.fulfilled ,(state, action : PayloadAction<any> )=>{
+                // .addCase(userupdate.pending,(state)=>{
+                //     state.status='loading'
+                // })
+                // .addCase(userupdate.fulfilled ,(state, action : PayloadAction<any> )=>{
 
-                    state.status='success'
-                    state.user=action.payload
-                })
-                .addCase(userupdate.rejected ,(state ,action  : PayloadAction<any>)=>{
-                    state.status='failed'
-                    state.error=action.payload
+                //     state.status='success'
+                //     state.user=action.payload
+                // })
+                // .addCase(userupdate.rejected ,(state ,action  : PayloadAction<any>)=>{
+                //     state.status='failed'
+                //     state.error=action.payload
 
-                })
+                // })
     }
 
 })

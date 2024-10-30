@@ -25,6 +25,7 @@ const postsubmit= async ()=>{
         return
     }
     const newpost = new FormData();
+    
     newpost.append('userid',userId)
     newpost.append('text',postcontent)
     newpost.append('image',postimage)
@@ -63,7 +64,7 @@ const postsubmit= async ()=>{
 
   return (
     <div>
-<div className="fixed inset-0 w-full h-full bg-black bg-opacity-60 flex justify-center items-center z-[1000]">
+<div className="fixed inset-0 w-full h-full bg- bg-opacity-60 flex justify-center items-center z-[1000]">
       <div className="bg-[#181818] p-8 w-[90%] max-w-[500px] rounded-lg shadow-lg relative animate-fadeIn">
         <button onClick={onclose} className="absolute top-2 right-2 text-2xl text-gray-500 hover:text-red-500 transition-colors">
           &times;

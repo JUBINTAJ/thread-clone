@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '@/app/hookkkk/Appdispatch';
 import { useRouter } from 'next/navigation';
 import qr from '../../../Public/img/Screenshot 2024-10-15 161102.png';
 import Loading from '@/app/componnts/loading/loading';
-import userSlice, { loginUser } from '@/store/reducer/userSlice'
+import  { loginUser } from '@/store/reducer/userSlice'
 
 const Page: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -31,10 +31,6 @@ const Page: React.FC = () => {
       router.push('/main');
     }
   }, [status, user, router]);
-
-
-
-
 
 
   const handling = (e: React.FormEvent<HTMLFormElement>) => {
