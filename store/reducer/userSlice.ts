@@ -28,25 +28,25 @@ const initialState : logindata ={
 }
 
 
-export const  loginUser = createAsyncThunk(
-    'login/loginUser',
-      async  (userdata :{username:string, password:string } ,{rejectWithValue})=>{
+// export const  loginUser = createAsyncThunk(
+//     'login/loginUser',
+//       async  (userdata :{username:string, password:string } ,{rejectWithValue})=>{
 
-        try{
-            const response=await axiosInstance.post('users/login',userdata)
-            return response.data
-
-
-
-        }catch (error : any){
-            return rejectWithValue=(error.response.data.message || 'all error are occared')
-        }
+//         try{
+//             const response=await axiosInstance.post('users/login',userdata)
+//             return response.data
 
 
-      }
+
+//         }catch (error : any){
+//             return rejectWithValue=(error.response.data.message || 'all error are occared')
+//         }
+
+
+//       }
       
 
-)
+// )
 
 
 
@@ -84,20 +84,20 @@ const userSlice=createSlice({
     
             extraReducers:(builder)=>{
               builder
-                .addCase(loginUser.pending ,(state)=>{
-                    state.status='loading'
+                // .addCase(loginUser.pending ,(state)=>{
+                //     state.status='loading'
 
-                })
-                .addCase(loginUser.fulfilled ,(state, action : PayloadAction<any> )=>{
+                // })
+                // .addCase(loginUser.fulfilled ,(state, action : PayloadAction<any> )=>{
 
-                    state.status='success'
-                    state.user=action.payload
-                })
-                .addCase(loginUser.rejected ,(state ,action  : PayloadAction<any>)=>{
-                    state.status='failed'
-                    state.error=action.payload
+                //     state.status='success'
+                //     state.user=action.payload
+                // })
+                // .addCase(loginUser.rejected ,(state ,action  : PayloadAction<any>)=>{
+                //     state.status='failed'
+                //     state.error=action.payload
 
-                })
+                // })
 
                 
 

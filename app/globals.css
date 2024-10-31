@@ -114,3 +114,8 @@ body {
   top: 20px;
 
 } */
+/* 
+.blur {
+  filter: blur(5px);
+  transition: filter 0.3s ease;
+} */

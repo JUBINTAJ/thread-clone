@@ -7,42 +7,48 @@ import { useAppDispatch, useAppSelector } from '@/app/hookkkk/Appdispatch';
 import { useRouter } from 'next/navigation';
 import qr from '../../../Public/img/Screenshot 2024-10-15 161102.png';
 import Loading from '@/app/componnts/loading/loading';
-import  { loginUser } from '@/store/reducer/userSlice'
+// import  { loginUser } from '@/store/reducer/userSlice'
+import axiosInstance from '@/app/axios/axiosinstance';
+import { Result } from 'postcss';
 
 const Page: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false); 
+  const[stutas,setstatus]=useState<string| null>(null)
+  const[error ,seterror]=useState<string| null>(null)
   
 
 
   const dispatch = useAppDispatch();
-  const router = useRouter();
+  const router =useRouter();
 
 
-  const { user, status, error } = useAppSelector((state) => state.user);
-
-  useEffect(() => {
-    if (status === 'success' && user) {
-      const userid = user._id;
-   
-      console.log(user)
-      localStorage.setItem('userid', userid);
-      router.push('/main');
-    }
-  }, [status, user, router]);
+  
 
 
-  const handling = (e: React.FormEvent<HTMLFormElement>) => {
+const loginuser=async (userdata : {username : string , password : string })=>{
+  try{
+    const response=await axiosInstance.post('users/login',userdata)
+    return response.data
+  }catch(error:any){
+    console.log(error)
+  }
+}
+
+  const handling = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true); 
-    
-    dispatch(loginUser({ username, password })).finally(() => {
-      setLoading(false); 
-    });
-  };
+    setLoading(true)
+   const user=await  loginuser({username,password})
+    if(user && user._id){
+      const userId=user._id
+      localStorage.setItem('userid',userId)
+      router.push('/main')
+      
+    }
+    setLoading(false)
 
-
+  }
 
 
 
@@ -78,7 +84,7 @@ const Page: React.FC = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-              {status === 'failed' && error && (
+              {password === 'failed'  && (
                 <p className="text-red-500 text-sm mt-2">User not found or incorrect password</p>
               )}
 
@@ -87,7 +93,7 @@ const Page: React.FC = () => {
                 className="bg-white rounded-xl block w-full h-14 px-3 py-3 mt-2 text-gray-900 hover:bg-gray-200 focus:ring-2 focus:ring-gray-300"
                 disabled={loading} 
               >
-                {loading ? <Loading /> : 'Log In'} {}
+                {loading ? <Loading /> : 'Log In'} 
               </button>
 
               <p className="flex justify-center mt-3 text-gray-600 font-extralight">Forgot password?</p>

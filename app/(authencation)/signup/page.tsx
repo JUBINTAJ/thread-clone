@@ -25,9 +25,6 @@ const Page: React.FC = () => {
 
     const router = useRouter();
 
-
-
-
     const signUser = (
         async (userdata: { name: string, username: string, email: string, phone: string, password: string}) => {
 
@@ -47,22 +44,19 @@ const Page: React.FC = () => {
 
     )
  
-
-
-
     const handling = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setloading(true)
+        seterror(null)
 
 
-       const res= await 
-    //    (  (password === conformpassword && password.length > 8 && email.includes("@")) 
-            signUser({ name, username, email, phone, password })
+       const res= await  signUser({ name, username, email, phone, password })
             if (status === 'success') {
 
                 router.push('/login');
             }
-        
+            return res
+        setloading(false)
     }
 
 
@@ -121,7 +115,7 @@ const Page: React.FC = () => {
                             type="submit"
                             className="bg-white rounded-xl block w-full px-3 py-3 mt-2 text-gray-900 hover:bg-gray-200 focus:ring-2 focus:ring-gray-300"
                         >
-                            Sign up
+                           { loading  ? <Loading/>:'signUp'}
                         </button>
                     </div>
                 </div>

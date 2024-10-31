@@ -45,9 +45,13 @@ function sidebar() {
       <Image src={home} alt='home' className='w-8' />
     </div>
     </Link>
+
+    <Link href={'/search'}>
     <div className='hover:bg-gray-900 p-2 rounded-xl transition duration-200'>
       <Image src={search} alt='search' className='w-8' />
     </div>
+    </Link>
+    
   
     <div className='hover:bg-gray-900 p-2 rounded-xl transition duration-200 '>
       <Image src={plus} alt='plus' className='w-8' />

@@ -8,7 +8,7 @@ function loading() {
       <div className="dot"></div>
       <div className="dot"></div>
       <div className="dot"></div>
-      <div className="dot"></div> {/* Added fifth dot */}
+      <div className="dot"></div> 
     </div>
   </div>
   )
