@@ -55,7 +55,7 @@ const Page: React.FC = () => {
 
                 router.push('/login');
             }
-            return res
+            
         setloading(false)
     }
 

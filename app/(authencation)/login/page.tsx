@@ -84,7 +84,7 @@ const loginuser=async (userdata : {username : string , password : string })=>{
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-              {password === 'failed'  && (
+              {stutas === 'failed'  && (
                 <p className="text-red-500 text-sm mt-2">User not found or incorrect password</p>
               )}
 

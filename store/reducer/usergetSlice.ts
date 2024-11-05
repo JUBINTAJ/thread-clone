@@ -17,15 +17,15 @@ interface User {
 
 interface inti{
   user:User | null
-  users:User[] | null,
-  stutas:'initail'|'loading'|'success'|'failed'
+  users:User[] 
+  status:'initail'|'loading'|'success'|'failed'
   error:string | null
 
 }
  const initialState : inti = { 
     user:null,
     users:[],
-    stutas:'initail',
+    status:'initail',
     error:null
      
 
@@ -34,8 +34,9 @@ interface inti{
 export  const fetchUser = createAsyncThunk ( 
     'usersid/fetchUserData',
     
-    async (userId:string | null) => {
+    async () => {
     try {
+        const userId = localStorage.getItem("userid")
       const response = await axiosInstance.get(`users/${userId}`);
        console.log(response.data.user) 
        return response.data.user
@@ -69,26 +70,26 @@ const usergetSlice=createSlice({
     extraReducers:(builder)=>(
         builder
            .addCase(fetchUser.pending ,(state)=>{
-            state.stutas='loading'
+            state.status='loading'
            })
            .addCase(fetchUser.fulfilled ,(state ,action)=>{
-            state.stutas="success"
+            state.status="success"
             state.user=action.payload
            })
            .addCase(fetchUser.rejected ,(state ,action : PayloadAction<any> )=>{
-            state.stutas="failed"
+            state.status="failed"
             state.error=action.payload
            })
 
            .addCase(fetchsearch.pending,(state)=>{
-            state.stutas='loading'
+            state.status='loading'
            })
            .addCase(fetchsearch.fulfilled ,(state ,action :PayloadAction<any>)=>{
-            state.stutas="success"
+            state.status="success"
             state.users=action.payload
            })
            .addCase(fetchsearch.rejected ,(state ,action : PayloadAction<any> )=>{
-            state.stutas="failed"
+            state.status="failed"
             state.error=action.payload
            })
     )
