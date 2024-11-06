@@ -45,16 +45,6 @@ export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
 });
 
 
-// const usepromise=posts.map(post=> axiosInstance.get(`users/${post.postById}`))
-
-
-
-// const users = await Promise.all(usepromise);
-
-// return posts.map((post, index) => ({
-//     ...post,
-//     postById: users[index].data 
-// }));
 
 
 // export const addNewPost = createAsyncThunk(

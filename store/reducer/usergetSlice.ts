@@ -43,7 +43,7 @@ export  const fetchUser = createAsyncThunk (
 
 
     }catch(error){
-        console.log("error")
+        console.log("error",error)
     }
 });
 

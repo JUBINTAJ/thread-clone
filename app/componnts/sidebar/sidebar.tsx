@@ -76,10 +76,12 @@ function sidebar() {
 
 
 
+              <Link href={"/activity"}>
 
               <div className='hover:bg-gray-900 p-2 rounded-xl transition duration-200'>
                 <Image src={like} alt='like' className='w-8' />
               </div>
+              </Link>
 
 
               <Link href={"/componnts/profile"}>

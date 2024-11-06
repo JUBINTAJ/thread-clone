@@ -20,7 +20,7 @@ function Page() {
             )
         );
         
-    }, [dispatch,users, search,]);
+    }, [dispatch,users]);
 
    
 

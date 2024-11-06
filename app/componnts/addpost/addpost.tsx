@@ -24,14 +24,14 @@ const AddPost: React.FC<PostProps> = ({ isopen, onclose, children }) => {
 
     useEffect(() => {
     
-            dispatch(fetchUser( ));
+            dispatch(fetchUser());
         
     }, [dispatch]);
 
     const postsubmit = async () => {
         const userId = localStorage.getItem('userid');
         if (postcontent.trim() === '') {
-            alert('Please write something before posting!');
+            alert('Please write something before posting');
             return;
         }
         if (!userId) {
@@ -124,7 +124,7 @@ const AddPost: React.FC<PostProps> = ({ isopen, onclose, children }) => {
                             </div>
                         </div>
                         <div className="mt-3 flex justify-end">
-                            <button onClick={postsubmit} disabled={loading} className="bg-black text-white rounded-lg px-4 py-2 transition hover:bg-blue-700">
+                            <button onClick={postsubmit} disabled={loading} className="bg-black text-white rounded-lg px-4 py-2 transition ">
                                 {loading ? <Loading /> : 'Post'}
                             </button>
                         </div>
