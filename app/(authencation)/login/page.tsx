@@ -14,37 +14,39 @@ import { Result } from 'postcss';
 const Page: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false); 
-  const[stutas,setstatus]=useState<string| null>(null)
-  const[error ,seterror]=useState<string| null>(null)
-  
+  const [loading, setLoading] = useState(false);
+  const [stutas, setstatus] = useState<string | null>(null)
+  const [error, seterror] = useState<string | null>(null)
+
+  const [show ,setshow]=useState(false)
+
 
 
   const dispatch = useAppDispatch();
-  const router =useRouter();
+  const router = useRouter();
 
 
-  
 
 
-const loginuser=async (userdata : {username : string , password : string })=>{
-  try{
-    const response=await axiosInstance.post('users/login',userdata)
-    return response.data
-  }catch(error:any){
-    console.log(error)
+
+  const loginuser = async (userdata: { username: string, password: string }) => {
+    try {
+      const response = await axiosInstance.post('users/login', userdata)
+      return response.data
+    } catch (error: any) {
+      console.log(error)
+    }
   }
-}
 
   const handling = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true)
-   const user=await  loginuser({username,password})
-    if(user && user._id){
-      const userId=user._id
-      localStorage.setItem('userid',userId)
+    const user = await loginuser({ username, password })
+    if (user && user._id) {
+      const userId = user._id
+      localStorage.setItem('userid', userId)
       router.push('/main')
-      
+
     }
     setLoading(false)
 
@@ -76,24 +78,38 @@ const loginuser=async (userdata : {username : string , password : string })=>{
                 onChange={(e) => setUsername(e.target.value)}
                 required
               />
+        <div className='relative'>
+
               <input
-                type="password"
+                type={show ? 'text ': 'password' }
                 placeholder="Password"
                 className="bg-[#201d1d] appearance-none rounded-xl block h-14 w-full px-3 py-3 mt-2 placeholder-gray-500 text-white"
                 aria-label="Password"
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                
               />
-              {stutas === 'failed'  && (
+              <button 
+              type='button'
+              onClick={()=>setshow(!show)}
+             className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+
+              >
+              {show ? '👁️‍🗨️':'👁️'}
+              </button>
+                     </div>
+
+
+              {stutas === 'failed' && (
                 <p className="text-red-500 text-sm mt-2">User not found or incorrect password</p>
               )}
 
               <button
                 type="submit"
                 className="bg-white rounded-xl block w-full h-14 px-3 py-3 mt-2 text-gray-900 hover:bg-gray-200 focus:ring-2 focus:ring-gray-300"
-                disabled={loading} 
+                disabled={loading}
               >
-                {loading ? <Loading /> : 'Log In'} 
+                {loading ? <Loading /> : 'Log In'}
               </button>
 
               <p className="flex justify-center mt-3 text-gray-600 font-extralight">Forgot password?</p>
@@ -112,21 +128,25 @@ const loginuser=async (userdata : {username : string , password : string })=>{
             </div>
           </div>
 
-          <div className="flex flex-row justify-center p-4 gap-3 flex-wrap">
-            <a href="#" className="text-gray-500 hover:underline text-[11px]">© 2024</a>
-            <a href="#" className="text-gray-500 hover:underline text-[11px]">Threads Terms</a>
-            <a href="#" className="text-gray-500 hover:underline text-[11px]">Privacy Policy</a>
-            <a href="#" className="text-gray-500 hover:underline text-[11px]">Cookies Policy</a>
-            <a href="#" className="text-gray-500 hover:underline text-[11px]">Report a problem</a>
-            <div className="absolute bottom-4 right-4 p-4">
-              <p className='pb-4 pl-8 text-gray-500 text-[13px]'>Scan to get the app</p>
+          <div className="flex flex-col sm:flex-row justify-center p-4 gap-3 flex-wrap relative">
+            <a href="#" className="text-gray-500 hover:underline text-[11px] sm:text-[12px] md:text-[14px]">© 2024</a>
+            <a href="#" className="text-gray-500 hover:underline text-[11px] sm:text-[12px] md:text-[14px]">Threads Terms</a>
+            <a href="#" className="text-gray-500 hover:underline text-[11px] sm:text-[12px] md:text-[14px]">Privacy Policy</a>
+            <a href="#" className="text-gray-500 hover:underline text-[11px] sm:text-[12px] md:text-[14px]">Cookies Policy</a>
+            <a href="#" className="text-gray-500 hover:underline text-[11px] sm:text-[12px] md:text-[14px]">Report a problem</a>
+
+            <div className="absolute bottom-4 right-4 p-4 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8">
+              <p className="pb-4 text-gray-500 text-[13px] sm:text-[14px] md:text-[16px] lg:text-[18px]">
+                Scan to get the app
+              </p>
               <Image
                 src={qr}
-                alt='qr'
-                className="w-full h-auto flex flex-row justify-end flex-wrap hover:scale-110 transition ease-in-out"
+                alt="qr"
+                className="w-20 h-auto sm:w-24 md:w-28 lg:w-32 xl:w-36 flex flex-row justify-end flex-wrap hover:scale-110 transition ease-in-out"
               />
             </div>
           </div>
+
         </div>
       </form>
     </div>
@@ -134,3 +154,4 @@ const loginuser=async (userdata : {username : string , password : string })=>{
 }
 
 export default Page;
+

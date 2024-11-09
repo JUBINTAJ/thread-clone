@@ -1,29 +1,29 @@
-import React from 'react';
+// import React from 'react';
 
  
 
-interface PostBtnProps {
+// interface PostBtnProps {
 
-    onClick: () => void;
+//     onClick: () => void;
 
-}
-
- 
-
-const PostBtn: React.FC<PostBtnProps> = ({ onClick }) => {
-
-    return (
-
-
-
-            <>
-            <button onClick={onClick}   className='h-10 w-16 mt-3  bg-[#181818] text-white border rounded-lg '> Post</button>
-            </>
-
-    );
-
-};
+// }
 
  
 
-export default PostBtn;  
+// const PostBtn: React.FC<PostBtnProps> = ({ onClick }) => {
+
+//     return (
+
+
+
+//             <>
+//             <button onClick={onClick}   className='h-10 w-16 mt-3  bg-[#181818] text-white border rounded-lg '> Post</button>
+//             </>
+
+//     );
+
+// };
+
+ 
+
+// export default PostBtn;  

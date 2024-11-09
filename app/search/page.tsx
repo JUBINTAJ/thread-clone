@@ -10,6 +10,7 @@ function Page() {
     const dispatch = useAppDispatch();
     const [search, setSearch] = useState<string>("");
     const [showSearch, setShowSearch] = useState<any[]>([]);
+    const[Follow , setFollow]=useState(false)
     const { users } = useAppSelector((state) => state.userget);
 
     useEffect(() => {
@@ -36,8 +37,8 @@ function Page() {
                 <div>
                     <p className='text-center pt-8 prata-regular'>Search</p>
                 </div>
-                <div className="border bg-[#5654543b] border-[#3b3b3b] w-[630px] h-[865px] border-b-0 mt-3 rounded-tl-[30px] rounded-tr-[30px] rounded-bl-none rounded-br-none scrollb">
-                    <div>
+                <div className="bg-[#5654543b] w-full md:w-[630px] h-auto md:h-[865px] mt-3 border-b-0 border border-[#3b3b3b] rounded-tl-[30px] rounded-tr-[30px] rounded-bl-none rounded-br-none scrollb">
+                <div>
                         <input
                             type="text"
                             placeholder='Search'
@@ -63,7 +64,7 @@ function Page() {
                                         <div className="w-full h-px bg-[#3b3b3b] mt-2"></div>
                                     </div>
                                     <div className='mr-6 flex items-center'>
-                                        <button className='border border-[#3b3b3b] w-28 h-9 rounded-xl'>Follow</button>
+                                        <button className='border border-[#3b3b3b] w-28 h-9 rounded-xl'>{Follow ? 'follow': 'unfollow'}</button>
                                         {/* <Followbtn  userId={user._id}  followers={user.followers}   /> */}
 
                                     </div>

@@ -15,7 +15,7 @@ function Page() {
                 <div>
                     <p className='text-center pt-8 prata-regular'>Activity</p>
                 </div>
-                <div className="border bg-[#5654543b] border-[#3b3b3b] w-[630px] h-[865px] border-b-0 mt-3 rounded-tl-[30px] rounded-tr-[30px] rounded-bl-none rounded-br-none scrollb">
+                <div className="bg-[#5654543b] w-[630px] md:w-[630px] h-[865px] md:h-[865px] mt-3 border-b-0 border border-[#3b3b3b] rounded-tl-[30px] rounded-tr-[30px] rounded-bl-none rounded-br-none scrollb">
                  
                    
                 </div>

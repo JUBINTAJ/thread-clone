@@ -50,6 +50,16 @@ const initialState : logindata ={
 
 
 
+export const  userupdate=createAsyncThunk(
+    'update/userupdate',
+            async (userupdate :{name:string,  username: string;email:string ,bio:string,profilepic:string },{rejectWithValue})=>{
+                try{
+                    const response=await axiosInstance.patch(`users/${userupdate}`)
+                }catch(error:any){
+                    return rejectWithValue=(error.response.data.message || 'error')
+                }
+            } 
+)
 
 
 
@@ -57,18 +67,6 @@ const initialState : logindata ={
 
 
 
-
-// export const userupdate= createAsyncThunk (
-//     'user/userupdate',
-//     async (updatedata:{    name: string, username: string, email: string, bio: string, profilePic: string},{rejectWithValue})=>{
-//         try{
-//             const response=await axiosInstance.patch(`users/${localStorage.getItem('userid')}`,updatedata)
-//             return response.data
-//         }catch(error:any){
-//              return rejectWithValue('error')
-//         }
-//     }
-// )
 
 
 
@@ -99,24 +97,18 @@ const userSlice=createSlice({
 
                 // })
 
-                
+                .addCase(userupdate.pending ,(state)=>{
+                    state.status='loading'
+                }).addCase(userupdate.fulfilled,(state , action :PayloadAction<any>)=>{
+                    state.status='success'
+                    state.userupdate=action.payload
+                }).addCase(userupdate.rejected ,(state ,action :PayloadAction<any> )=>{
+                    state.status='failed'
+                    state.error=action.payload
+                })
 
 
 
-
-                // .addCase(userupdate.pending,(state)=>{
-                //     state.status='loading'
-                // })
-                // .addCase(userupdate.fulfilled ,(state, action : PayloadAction<any> )=>{
-
-                //     state.status='success'
-                //     state.user=action.payload
-                // })
-                // .addCase(userupdate.rejected ,(state ,action  : PayloadAction<any>)=>{
-                //     state.status='failed'
-                //     state.error=action.payload
-
-                // })
     }
 
 })
