@@ -5,7 +5,7 @@ import userSlice from  "@/store/reducer/userSlice"
 import postsSlice from '@/store/reducer/postssSlice'
 import postSlice from '@/store/reducer/postSlice'
 import usergetSlice from "@/store/reducer/usergetSlice"
-// import followsSlice from '@/store/reducer/follow'
+import followsSlice from '@/store/reducer/follow'
 
 
 export const store= configureStore({
@@ -17,7 +17,7 @@ export const store= configureStore({
       posts: postsSlice,
       post:postSlice,
       userget :usergetSlice,
-      // follow : followsSlice
+      follow : followsSlice
     }
 
 })

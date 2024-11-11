@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '../hookkkk/Appdispatch'
 import { fetchPosts } from '@/store/reducer/postssSlice'
 import { fromJSON } from 'postcss'
 import LikeButton from "@/app/componnts/likebutton/likebutton"
+import Comment from '@/app/componnts/comment/comment'
 import { FcLike } from "react-icons/fc";
 import Sidebar from '../componnts/sidebar/sidebar'
 import Addpost from "@/app/componnts/addpost/addpost"
@@ -25,6 +26,7 @@ function page() {
 
   const [likee, setlike] = useState(false)
   const [onopen, setonopen] = useState(false)
+  const[selectcmt,setselectcmt]=useState<any>(null)
   const [users, setUser] = useState<any>(null);
   const { user } = useAppSelector((state) => state.userget)
 
@@ -55,6 +57,12 @@ function page() {
 
   const handli = () => {
     setlike(true)
+  }
+
+
+
+  const openmodal = (post : any)=>{
+    setselectcmt(post)
   }
 
 
@@ -114,7 +122,7 @@ function page() {
                     <h1 className="text-gray-500 text-lg">...</h1>
                   </div>
                   <p className=" pb-2">{post.text}</p>
-                  {post.image && <img className="h-[435px]  rounded-md mb-4  " src={post.image} alt="post" />}
+                  {post.image && <img className="h-[435px] w-auto w-max-[40px] rounded-md mb-4  " src={post.image} alt="post" />}
                   <div className="flex items-center gap-8 ">
                     {/* <button onClick={handli} className="flex items-center">
                         <Image src={like} alt='' className="w-7 h-7"   />
@@ -122,7 +130,7 @@ function page() {
                     </button> */}
                     <LikeButton initialLike={post.likes.length} postId={post._id} likedUser={post.likes} />
                     <div className=''>
-                      <Image src={comment} alt='' className='hover hover:bg-gray-900 ' />
+                      <Image src={comment} alt='' className='hover hover:bg-gray-900 ' onClick={()=>openmodal(post)} />
                     </div>
                     <div className=''>
                       <Image src={repost} alt='' className='hover hover:bg-gray-900 w-5' />
@@ -141,6 +149,17 @@ function page() {
       </div>
       <div>
       </div>
+      {selectcmt && (
+        <Comment  
+        isopen={!!selectcmt}
+        onclose={()=>setselectcmt(null)}
+        postId={selectcmt._id}
+        userId={userId || ""}
+        userprofilpic={user?.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png" }
+        username={user?.username || 'Anonymous'}
+
+        />
+      )}
     </div>
 
 

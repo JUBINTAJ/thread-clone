@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import Sidebar from '@/app/componnts/sidebar/sidebar';
-// import Followbtn from '@/app/componnts/Followbtn/followbtn'
+import Followbtn from '@/app/componnts/Followbtn/followbtn'
  
 import { useAppDispatch, useAppSelector } from '../hookkkk/Appdispatch';
 import { fetchsearch } from '@/store/reducer/usergetSlice';
@@ -10,6 +10,7 @@ function Page() {
     const dispatch = useAppDispatch();
     const [search, setSearch] = useState<string>("");
     const [showSearch, setShowSearch] = useState<any[]>([]);
+
     const[Follow , setFollow]=useState(false)
     const { users } = useAppSelector((state) => state.userget);
 
@@ -28,6 +29,10 @@ function Page() {
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value);
     };
+
+    const hand=()=>{
+        setFollow(true)
+    }
 
     return (
         <div className='flex justify-between'>
@@ -64,8 +69,8 @@ function Page() {
                                         <div className="w-full h-px bg-[#3b3b3b] mt-2"></div>
                                     </div>
                                     <div className='mr-6 flex items-center'>
-                                        <button className='border border-[#3b3b3b] w-28 h-9 rounded-xl'>{Follow ? 'follow': 'unfollow'}</button>
-                                        {/* <Followbtn  userId={user._id}  followers={user.followers}   /> */}
+                                        {/* <button className='border border-[#3b3b3b] w-28 h-9 rounded-xl' onClick={hand}>{Follow ? 'unfollow': 'follow'}</button> */}
+                                        <Followbtn  userId={user._id}    />
 
                                     </div>
                                 </div>
@@ -78,7 +83,7 @@ function Page() {
             </div>
 
             <div className='lay-3'>
-                {/* Additional content */}
+
             </div>
         </div>
     );

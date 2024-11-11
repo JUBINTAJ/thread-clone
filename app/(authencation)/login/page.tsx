@@ -1,5 +1,5 @@
-"use client";
-import React, { useEffect, useState } from 'react';
+'use client'
+import React, {  useState } from 'react';
 import Image from 'next/image';
 import bg from '../../../Public/img/bg.webp';
 import Link from 'next/link';
@@ -9,16 +9,16 @@ import qr from '../../../Public/img/Screenshot 2024-10-15 161102.png';
 import Loading from '@/app/componnts/loading/loading';
 // import  { loginUser } from '@/store/reducer/userSlice'
 import axiosInstance from '@/app/axios/axiosinstance';
-import { Result } from 'postcss';
+import { parseSetCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 
 const Page: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [stutas, setstatus] = useState<string | null>(null)
+  const [stutas, setstatus] = useState<'initail' | 'loading' | 'success' | 'failed'>('initail')
   const [error, seterror] = useState<string | null>(null)
 
-  const [show ,setshow]=useState(false)
+  const [show, setshow] = useState(false)
 
 
 
@@ -38,20 +38,54 @@ const Page: React.FC = () => {
     }
   }
 
+  // const handling = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   setLoading(true)
+  //   setstatus('loading')
+  //   const user = await loginuser({ username, password })
+  //   if (user && user._id) {
+  //     const userId = user._id
+  //     localStorage.setItem('userid', userId)
+  //     router.push('/main')
+  //     setstatus('success')
+
+  //   }
+
+  //   setLoading(false)
+
+  // }
+
+
+
   const handling = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true)
-    const user = await loginuser({ username, password })
-    if (user && user._id) {
-      const userId = user._id
-      localStorage.setItem('userid', userId)
-      router.push('/main')
-
+    setLoading(true);
+    setstatus('loading'); 
+    try {
+      const user = await loginuser({ username, password });
+      
+      if (user && user._id) {
+        const userId = user._id;
+        await parseSetCookie( userId);
+        router.push('/main');
+        setstatus('success');
+      } else {
+        if (!username || !password) {
+          seterror('Please enter both username and password.');
+        } else {
+          seterror('Invalid username or password.');
+        }
+        setstatus('failed'); 
+      }
+    } catch (error: any) {
+      console.log(error);
+      setstatus('failed');
+      seterror('An error occurred. Please try again later.');
+    } finally {
+      setLoading(false);
     }
-    setLoading(false)
-
-  }
-
+  };
+  
 
 
 
@@ -78,31 +112,37 @@ const Page: React.FC = () => {
                 onChange={(e) => setUsername(e.target.value)}
                 required
               />
-        <div className='relative'>
+              <div className='relative'>
 
-              <input
-                type={show ? 'text ': 'password' }
-                placeholder="Password"
-                className="bg-[#201d1d] appearance-none rounded-xl block h-14 w-full px-3 py-3 mt-2 placeholder-gray-500 text-white"
-                aria-label="Password"
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                
-              />
-              <button 
-              type='button'
-              onClick={()=>setshow(!show)}
-             className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+                <input
+                  type={show ? 'text ' : 'password'}
+                  placeholder="Password"
+                  className="bg-[#201d1d] appearance-none rounded-xl block h-14 w-full px-3 py-3 mt-2 placeholder-gray-500 text-white"
+                  aria-label="Password"
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
 
-              >
-              {show ? '👁️‍🗨️':'👁️'}
-              </button>
-                     </div>
+                />
+                <button
+                  type='button'
+                  onClick={() => setshow(!show)}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+
+                >
+                  {show ? '👁️‍🗨️' : '👁️'}
+                </button>
+              </div>
+              {stutas === 'failed' && username && password && (
+  <div className="mt-2 p-3 bg-red-100 border border-red-500 rounded-md text-red-600 text-sm">
+    <strong>Error:</strong> {error || 'Invalid username or password. Please try again.'}
+  </div>
+)}
 
 
-              {stutas === 'failed' && (
-                <p className="text-red-500 text-sm mt-2">User not found or incorrect password</p>
-              )}
+
+
+
+
 
               <button
                 type="submit"
