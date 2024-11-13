@@ -19,6 +19,7 @@ import comment from '@/Public/img/chat (1).png'
 import repost from '@/Public/img/repeat.png'
 import share from '@/Public/img/send.png'
 import replies from '../componnts/replies/replies'
+import Repost from '@/app/componnts/repost/repost'
 // import { Like }  from '@/Public/img/heart (1).png'
 
 
@@ -28,6 +29,8 @@ function page() {
   const [likee, setlike] = useState(false)
   const [onopen, setonopen] = useState(false)
   const[selectcmt,setselectcmt]=useState<any>(null)
+  const [repostData, setRepostData] = useState<any>(null);  
+
   const [users, setUser] = useState<any>(null);
   const { user } = useAppSelector((state) => state.userget)
 
@@ -64,6 +67,11 @@ function page() {
 
   const openmodal = (post : any)=>{
     setselectcmt(post)
+    setRepostData({
+      postId: post._id,
+      userProfilePic: post.postById?.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+      username: post.postById?.username || 'Unknown User',
+    })
   }
 
   console.log(posts[0])
@@ -133,7 +141,7 @@ function page() {
                         <span className="text-sm ">{post.replies.length}</span>
                     </div>
                     <div className='flex items-center'>
-                      <Image src={repost} alt='' className='hover hover:bg-gray-900 w-5' />
+                      <Image src={repost} alt='' className='hover hover:bg-gray-900 w-5' onClick={()=>openmodal(repostData)} />
                       <span className="text-sm ml-1">{post.reposts.length}</span>
 
                     </div>
@@ -159,6 +167,18 @@ function page() {
         userId={userId || ""}
         userprofilpic={user?.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png" }
         username={user?.username || 'Anonymous'}
+
+
+        />
+      )}
+
+{repostData && (
+        <Repost 
+        isopen={!!repostData}
+        onclose={()=>setRepostData(null)}
+        postId={repostData._id}
+        userprofilpic={repostData.userProfilePic}
+        username={repostData.username }
 
 
         />
