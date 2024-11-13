@@ -66,7 +66,8 @@ const Page: React.FC = () => {
       
       if (user && user._id) {
         const userId = user._id;
-        await parseSetCookie( userId);
+        localStorage.setItem('userid',userId)
+        // await parseSetCookie( userId);
         router.push('/main');
         setstatus('success');
       } else {

@@ -5,15 +5,20 @@ import React, { useEffect, useState } from 'react';
 import Sidebar from '@/app/componnts/sidebar/sidebar';  
 import Loading from '@/app/componnts/loading/loading';  
 import axiosInstance from '@/app/axios/axiosinstance';
-// import EditProfileModal from '@/app/componnts/editprofile/editprofile';
+import EditProfileModal from '@/app/componnts/editprofile/editprofile';
+import { useAppSelector } from '@/app/hookkkk/Appdispatch';
+import { fetchPostByUserId } from '@/store/reducer/postSlice';
 
 const Page: React.FC = () => {
   const [user, setUser] = useState<any>(null);
   const [status, setStatus] = useState<'initial' | 'loading' | 'success' | 'failed'>('initial');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const {post} = useAppSelector((state)=>state.post)
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  
+
+  const [onopen, setonopen] = useState(false)
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,9 +42,7 @@ const Page: React.FC = () => {
     fetchData();
   }, []);
 
-  if (status === 'loading') {
-    return <div className="text-center"><Loading /></div>;
-  }
+
 
   if (status === 'failed') {
     return <p>Error loading user data.</p>;
@@ -75,26 +78,41 @@ const Page: React.FC = () => {
               <p className="pl-5 text-gray-400">{user.followers.length} Followers</p>
               <button
                 className="border border-[#554e4e] border-spacing-2 w-full h-10 rounded-xl hover:text-black hover:bg-white mt-6"
-                onClick={openModal}
+                onClick={()=>setIsModalOpen(true)}
               >
                 Edit Profile
+
+            
               </button>
             </div>
           )}
-          <div className='flex justify-between'>
+
+          {post.map( (post)=>{
+            return (
+          
+            <div key={post.id}>
+              <div>
+                <div>
+                {post.image && <img className="image-main" src={post.image} alt="post" />}
+                </div>
+              </div>
+
+            </div>
+          )})}
+          {/* <div className='flex justify-between'>
             <div>fnv</div>
             <div>snvk</div>
             <div>nn</div>
             
-          </div>
+          </div> */}
         </div>
       </div>
 
       <div className='lay-3'></div>
 
-      {/* <EditProfileModal isopen={isModalOpen} onclose={closeModal} >
+       <EditProfileModal isopen={isModalOpen} onclose={()=>setIsModalOpen(false)} >
         <h1></h1>
-      </EditProfileModal> */}
+      </EditProfileModal> 
     </div>
   );
 };

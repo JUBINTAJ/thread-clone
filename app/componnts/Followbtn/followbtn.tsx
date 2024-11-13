@@ -2,6 +2,9 @@
 // import axiosInstance from "@/app/axios/axiosinstance";
 // import React, { useEffect, useState } from "react";
 
+import axios from "axios";
+import { randomBytes } from "crypto";
+
 // interface FollowBtnProps {
 //     userId : string
 // }
@@ -60,6 +63,24 @@
 //     };
     
 //     export default FollowBtn;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 'use client';
@@ -133,3 +154,73 @@ const FollowBtn: React.FC<FollowBtnProps> = ({ userId }) => {
 };
 
 export default FollowBtn;
+
+
+
+
+
+
+
+
+// import React, { useEffect, useState } from 'react'
+
+
+// interface followprops {
+//     initailfollow:number;
+//     userId:string;
+//     followuser:string[];
+// }
+
+// const followbtn : React.FC <followprops>=({ initailfollow, userId,followuser}) => {
+//     const[follow,setfollow]=useState(initailfollow)
+//     const[followed,setfollowed]=useState<boolean>(false)
+
+
+//     const userIdd=localStorage.getItem('userid')
+
+//     useEffect(()=>{
+//         if( userIdd && followuser.includes(userIdd as string)){
+//             setfollowed(true)
+//         }
+//     },[followuser,userIdd])
+
+
+//     const folloowhandle =async ()=>{
+//         const update=followed ? follow-1 : follow+1;
+//         setfollow(update)
+//         setfollowed(!followed)
+
+//         try{
+//             const senderId=followed 
+//              ? `https://social-media-rest-apis.onrender.com/api/users/unfollow/${userId}`
+//              : `https://social-media-rest-apis.onrender.com/api/users/follow/${userId}`;
+//              await axios.post(senderId ,{userIdd})
+//         }catch(error){
+//             console.log('error',error)
+//             setfollow(followed? follow-1 : follow+1)
+//             setfollowed(!followed)
+//         }
+
+//     }
+
+
+
+
+
+
+
+
+
+
+
+//   return (
+//        <button className='border border-[#3b3b3b] w-28 h-9 rounded-xl' onClick={folloowhandle} disabled={!userIdd} >
+        
+//         {followed ? 'unfollow': 'follow'}
+       
+//        </button> 
+
+//   )
+// }
+
+// export default followbtn

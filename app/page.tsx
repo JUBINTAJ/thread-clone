@@ -117,7 +117,7 @@ const Page = () => {
           <h1 className="text-gray-500 text-lg">...</h1>
         </div>
         <p className=" pb-2">{post.text}</p>
-        {post.image && <img className="h-[435px]  rounded-md mb-4  " src={post.image} alt="post" />}
+        {post.image && <img className="image-main " src={post.image} alt="post" />}
         <div className="flex items-center gap-8 ">
           
           <Likebutton initialLike={post.likes.length} postId={post._id} likedUser={post.likes} />

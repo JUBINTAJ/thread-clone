@@ -50,7 +50,7 @@ const initialState : logindata ={
 
 
 
-export const  userupdate=createAsyncThunk(
+export const  userupdateee=createAsyncThunk(
     'update/userupdate',
             async (userupdate :{name:string,  username: string;email:string ,bio:string,profilepic:string },{rejectWithValue})=>{
                 try{
@@ -97,12 +97,12 @@ const userSlice=createSlice({
 
                 // })
 
-                .addCase(userupdate.pending ,(state)=>{
+                .addCase(userupdateee.pending ,(state)=>{
                     state.status='loading'
-                }).addCase(userupdate.fulfilled,(state , action :PayloadAction<any>)=>{
+                }).addCase(userupdateee.fulfilled,(state , action :PayloadAction<any>)=>{
                     state.status='success'
                     state.userupdate=action.payload
-                }).addCase(userupdate.rejected ,(state ,action :PayloadAction<any> )=>{
+                }).addCase(userupdateee.rejected ,(state ,action :PayloadAction<any> )=>{
                     state.status='failed'
                     state.error=action.payload
                 })

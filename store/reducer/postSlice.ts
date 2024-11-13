@@ -33,7 +33,7 @@ interface Post {
 }
 
 interface PostsState {
-    post: Post[];
+    post: Post[] ;
     status: "idle" | "loading" | "succeeded" | "failed";
     error: string | null;
 }
@@ -50,7 +50,9 @@ export const fetchPostByUserId = createAsyncThunk(
     "posts/fetchPostByUserId",
     async (userId: string | any) => {
         const response = await axiosInstance.get(`posts/${userId}`);
-        return response.data.post;  
+        
+        return response.data.post;
+  
 });
 
 

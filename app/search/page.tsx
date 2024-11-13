@@ -12,7 +12,8 @@ function Page() {
     const [showSearch, setShowSearch] = useState<any[]>([]);
 
     const[Follow , setFollow]=useState(false)
-    const { users } = useAppSelector((state) => state.userget);
+    const { users ,user } = useAppSelector((state) => state.userget);
+    
 
     useEffect(() => {
         dispatch(fetchsearch());
@@ -67,10 +68,11 @@ function Page() {
                                         <p className='text-gray-400'>{user.username}</p>
                                         <p className='mt-1'>{user.followers.length} followers</p>
                                         <div className="w-full h-px bg-[#3b3b3b] mt-2"></div>
+                                   
                                     </div>
                                     <div className='mr-6 flex items-center'>
                                         {/* <button className='border border-[#3b3b3b] w-28 h-9 rounded-xl' onClick={hand}>{Follow ? 'unfollow': 'follow'}</button> */}
-                                        <Followbtn  userId={user._id}    />
+                                        <Followbtn userId={user._id}  />
 
                                     </div>
                                 </div>

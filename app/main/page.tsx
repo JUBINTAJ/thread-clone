@@ -18,6 +18,7 @@ import like from '@/Public/img/icons8-like-100 (1).png'
 import comment from '@/Public/img/chat (1).png'
 import repost from '@/Public/img/repeat.png'
 import share from '@/Public/img/send.png'
+import replies from '../componnts/replies/replies'
 // import { Like }  from '@/Public/img/heart (1).png'
 
 
@@ -65,7 +66,8 @@ function page() {
     setselectcmt(post)
   }
 
-
+  console.log(posts[0])
+  console.log(posts[2])
 
   return (
 
@@ -109,7 +111,7 @@ function page() {
           {posts.map((post) => {
             return (
               <div key={post._id} className="flex border-[#3b3b3b] border ">
-                <div className="p-2">
+                <div className="p-2" >
                   <img className="w-10 ml-4 h-10 object-cover rounded-full" src={post.postById?.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png"} alt="" />
                 </div>
                 <div className="flex-1 p-2">
@@ -117,23 +119,23 @@ function page() {
 
                   <div className="flex justify-between items-start ">
 
-             <p className="font-semibold">{post.postById ? post.postById.username : 'Unknown User'}</p>
+             <p className="font-semibold">{ post.postById?.username || 'Unknown User'}</p>
 
                     <h1 className="text-gray-500 text-lg">...</h1>
                   </div>
                   <p className=" pb-2">{post.text}</p>
-                  {post.image && <img className="h-[435px] w-auto w-max-[40px] rounded-md mb-4  " src={post.image} alt="post" />}
+                  {post.image && <img className="image-main" src={post.image} alt="post" />}
                   <div className="flex items-center gap-8 ">
-                    {/* <button onClick={handli} className="flex items-center">
-                        <Image src={like} alt='' className="w-7 h-7"   />
-                        {post.likes.length}
-                    </button> */}
+                 
                     <LikeButton initialLike={post.likes.length} postId={post._id} likedUser={post.likes} />
-                    <div className=''>
+                    <div className='flex items-center'>
                       <Image src={comment} alt='' className='hover hover:bg-gray-900 ' onClick={()=>openmodal(post)} />
+                        <span className="text-sm ">{post.replies.length}</span>
                     </div>
-                    <div className=''>
+                    <div className='flex items-center'>
                       <Image src={repost} alt='' className='hover hover:bg-gray-900 w-5' />
+                      <span className="text-sm ml-1">{post.reposts.length}</span>
+
                     </div>
                     <div className=''>
                       <Image src={share} alt='' className='hover hover:bg-gray-900 w-5' />
@@ -157,6 +159,7 @@ function page() {
         userId={userId || ""}
         userprofilpic={user?.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png" }
         username={user?.username || 'Anonymous'}
+
 
         />
       )}

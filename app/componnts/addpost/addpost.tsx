@@ -17,6 +17,7 @@ interface PostProps {
 const AddPost: React.FC<PostProps> = ({ isopen, onclose, children }) => {
     const [postcontent, setpostcontent] = useState<string>('');
     const [postimage, setpostimage] = useState<any>(null);
+    // const[postById,setpostByid]=useState<string>("")
     const [prev, setprev] = useState<string | null>(null);
     const [loading, setloading] = useState(false);
     const dispatch = useAppDispatch();
@@ -40,13 +41,17 @@ const AddPost: React.FC<PostProps> = ({ isopen, onclose, children }) => {
         }
         setloading(true);
         const newpost = new FormData();
-
         newpost.append('userid', userId);
         newpost.append('text', postcontent);
         newpost.append('image', postimage);
+        
 
         try {
-            await axiosInstance.post('posts', newpost);
+           const res= await axiosInstance.post('posts', newpost);
+            console.log('error',res)
+            onclose();
+            dispatch(fetchPosts());
+
         } catch (error) {
             console.log('Error adding new post', error);
         } finally {
@@ -56,8 +61,6 @@ const AddPost: React.FC<PostProps> = ({ isopen, onclose, children }) => {
         setpostcontent('');
         setpostimage(null);
         setprev(null);
-        onclose();
-        dispatch(fetchPosts());
     };
 
     const postchange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
