@@ -2,7 +2,7 @@
 
 import axiosInstance from '@/app/axios/axiosinstance';
 import { useAppDispatch, useAppSelector } from '@/app/hookkkk/Appdispatch';
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import Loading from '@/app/componnts/loading/loading';
 import draft from '@/Public/img/draft.png';
 import Image from 'next/image';
@@ -26,6 +26,8 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ isopen, onclose, ch
   const [email, setEmail] = useState<string>('');
   const [profile, setProfile] = useState<string>(''); 
   const [loading, setLoading] = useState<boolean>(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);  
+
 
   // useEffect(()=>{
   //   dispatch(fetchUser())
@@ -55,9 +57,24 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ isopen, onclose, ch
         }
       };
       fetchUserData();
-    }
+        }
   }, [isopen]);
 
+
+
+
+
+
+  const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfile(reader.result as string);  
+      };
+      reader.readAsDataURL(file);
+    }
+  };
   const handle = async () => {
     const userId = localStorage.getItem('userid');
     if (userId) {
@@ -72,8 +89,19 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ isopen, onclose, ch
         });
 
         dispatch(userupdateee(res.data));  
+
+
+        const updatedUser = res.data.user;
+
+
+        setName(updatedUser.name);
+        setUsername(updatedUser.username); 
+        setBio(updatedUser.bio);
+        setEmail(updatedUser.email);
+        setProfile(updatedUser.profilePic || 'https://cdn-icons-png.flaticon.com/512/149/149071.png');
         setLoading(false);
         onclose();  
+          
       } catch (error) {
         console.log('Error updating user data:', error);
         setLoading(false);
@@ -130,17 +158,20 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ isopen, onclose, ch
                   type="file"
                   accept="image/*"
                   className="absolute inset-0 opacity-0 cursor-pointer"
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    if (file) {
-                      const reader = new FileReader();
-                      reader.onloadend = () => {
-                        setProfile(reader.result as string);  
-                    }
-                    reader.readAsDataURL(file);
+                //   onChange={(e) => {
+                //     const file = e.target.files?.[0];
+                //     if (file) {
+                //       const reader = new FileReader();
+                //       reader.onloadend = () => {
+                //         setProfile(reader.result as string);  
+                //     }
+                //     reader.readAsDataURL(file);
 
-                  }}
-                }
+                //   }}
+                // }
+
+                onChange={handleImage}
+                ref={fileInputRef}
                 />
                 <label className="flex items-center text-gray-300 cursor-pointer hover:text-white">
                   <button className="ml-2 mt-5 border border-black text-white-500 hover:text-white transition h-10 w-40 rounded-lg">

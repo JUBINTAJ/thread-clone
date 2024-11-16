@@ -126,3 +126,58 @@ const Page: React.FC = () => {
 };
 
 export default Page;
+
+
+
+
+
+
+
+
+
+// import { useRouter } from 'next/navigation';
+// import Loading from '@/app/componnts/loading/loading';
+// import axiosInstance from '@/app/axios/axiosinstance';
+// import Sign from '@/app/componnts/form/signinForm'
+ 
+//  export const signUser = (
+//     async (userdata: { name: string, username: string, email: string, phone: string, password: string}) => {
+
+//         try {
+//             const response = await axiosInstance.post('users/signup', userdata)
+//             return response.data
+            
+//         } catch (error: any) {
+//             console.log(error.response.data.message || 'all error are occared')
+//         }
+
+
+//     }
+
+
+// )
+
+
+// const Page: React.FC = () => {
+
+
+
+
+   
+
+
+
+
+
+
+
+//     return (
+
+//         <div>
+//             <Sign/>
+//         </div>
+      
+//     );
+// };
+
+// export default Page;

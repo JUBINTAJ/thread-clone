@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import therad from '@/Public/img/threads-logo-w.png'
 import home from "@/Public/img/home (3).png"
-import like from '@/Public/img/like.png'
+import like from '@/Public/img/Img - Like.svg'
 import plus from '@/Public/img/plus.png'
 import search from '@/Public/img/loupe.png'
 import user from '@/Public/img/user (1).png'
@@ -13,11 +13,17 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import Addpost from '@/app/componnts/addpost/addpost'
+import Modal from '@/app/componnts/modal/modal'
 
 
 function sidebar() {
 
   const [onopen, setonopen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleLogoutClick = () => {
+    setIsModalOpen(true);
+  };
 
   const router = useRouter()
 
@@ -110,13 +116,14 @@ function sidebar() {
 
 
 
-              <div className="flex items-center relative group cursor-pointer" onClick={logout}>
-                <div className="hover:bg-gray-900 p-2 rounded-xl transition duration-200">
+              <div className="flex items-center relative group cursor-pointer mr-20" >
+                <div className="hover:bg-gray-900 p-2 rounded-xl transition duration-200" onClick={handleLogoutClick}>
                   <Image src={menu} alt="user" className="w-8" />
                 </div>
-                <p className="ml-4 mb-8 text-blue opacity-0 transition-opacity duration-200 group-hover:opacity-100 prata-regular border w-16 p-px">
-                  Logout
-                </p>
+               
+
+                <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
               </div>
 
 

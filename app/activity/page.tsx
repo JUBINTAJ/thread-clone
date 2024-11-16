@@ -47,22 +47,25 @@ async function getnotification(){
                 </div>
                 <div className="bg-[#5654543b] w-[630px] md:w-[630px] h-[865px] md:h-[865px] mt-3 border-b-0 border border-[#3b3b3b] rounded-tl-[30px] rounded-tr-[30px] rounded-bl-none rounded-br-none scrollb">
 
-                       { notification.map((notification)=>{
-                        
-                        return (
-                            <div key={notification.id}>
-                                <div>
-                                    <div>
-                                        {notification.senderuserId.name}
-                                    </div>
-                                    <div>{notification.description}</div>
-                                </div>
-
+                <div className='ml-3 py-2 '>
+              {notification.length === 0 ? (
+                    <p>No notifications available...</p>
+              ) : (
+               
+                notification.map((notification) => (
+                    <div key={notification.id} className="border-b border-[#383939] py-4">
+                        <div className="flex items-center">
+                            <div className="">
+                           
                             </div>
-
-                          ) })}
-                 
-                   
+                            <div className="flex flex-col justify-start ml-2">
+                                <div className="text-white">{notification.senderuserId.name}</div>
+                                <div className="text-neutral-400 ">{notification.description}</div>
+                            </div>
+                        </div>
+                    </div>
+               ) ))}
+            </div>
                 </div>
             </div>
 
@@ -72,3 +75,5 @@ async function getnotification(){
 }
 
 export default Page;
+
+

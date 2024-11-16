@@ -162,7 +162,7 @@ const Comment: React.FC<PostProps> = ({ isopen, onclose, postId, userId, userpro
 
                     <div className="flex justify-end">
                         <button
-                            className="bg-[#2d2d2d] text-white px-3 py-1.5 rounded-2xl mt-2 ml-5 mr-2 text-sm h-10 w-16"
+                            className="bg-[#2d2d2d] text-white px-3 py-1.5 rounded-2xl mt-2 ml-5 mr-2 text-sm h-10 w-16 "
                             onClick={handleReply}
                             disabled={loading}
                         >

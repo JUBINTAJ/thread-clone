@@ -2,10 +2,16 @@ import axiosInstance from "@/app/axios/axiosinstance";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { stat } from "fs";
 
-
+interface User {
+    id: string;
+    username: string ;
+    email: string;
+    profilePic: string;
+}
 interface User {
     id: string;
     name: string;
+    postById:User;
     followers: string[];
     following: string[];
     email: string;

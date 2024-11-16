@@ -3,8 +3,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Image from 'next/image';
-import likee from '@/Public/img/like.png'; 
-import redlike from '@/Public/img/love.png'
+import likee from '@/Public/img/Img - Like.svg'; 
+import redlike from '@/Public/img/Vector.svg'
+import { Span } from "next/dist/trace";
 interface LikeButtonProps {
     initialLike: number;
     postId: string;
@@ -41,14 +42,14 @@ const LikeButton = ({ initialLike, postId, likedUser }: LikeButtonProps) => {
     };
 
     return (
-        <button onClick={handleLike} className="flex items-center">
-        <Image
-            src={liked ? redlike : likee}
+<button onClick={handleLike} className="w-[60px] h-[30px] flex justify-center items-center rounded-[20px] gap-1 hover:bg-[rgb(56,52,52)] transition-all duration-500 ease-in">
+              <Image
+            src={liked ?  redlike  : likee}
             alt="like icon"
-            className="w-6"
-        />
-        <span className={liked ? 'text-red-500' : 'text-white'}>
-            {like}
+            className="w-6   "
+            />
+        <span className={liked ? 'text-[#FF0034]' : 'text-white' } >
+           <span className="ml-1"> {like}</span>
         </span>
     </button>
     );

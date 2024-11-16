@@ -72,6 +72,7 @@ const postSlice=createSlice({
         .addCase(fetchPostByUserId.fulfilled, (state, action: PayloadAction<Post[]>) => {
             state.status = "succeeded";
             state.post = action.payload; 
+            console.log(action.payload)
         })
         
         .addCase(fetchPostByUserId.rejected, (state, action) => {

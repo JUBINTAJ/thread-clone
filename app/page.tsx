@@ -18,10 +18,12 @@ import comment from '@/Public/img/chat (1).png'
 import repost from '@/Public/img/repeat.png'
 import share from '@/Public/img/send.png'
 import Likebutton from '@/app/componnts/likebutton/likebutton'
+import Mainloading from '@/app/componnts/loadinginall/mainload'
+
 
 const Page = () => {
   const dispatch = useAppDispatch();
-  const { posts } = useAppSelector((state) => state.posts);
+  const { posts,status } = useAppSelector((state) => state.posts);
   const [isLoginPromptOpen, setIsLoginPromptOpen] = useState(false);
 
   useEffect(() => {
@@ -101,42 +103,59 @@ const Page = () => {
       <p className='  text-center pt-8 prata-regular '>For you</p>
 
       <div className="  bg-[#5654543b] w-[630px] h-[865px] mt-3 border-b-0 border border-[#3b3b3b]   rounded-tl-[30px] rounded-tr-[30px] rounded-bl-none rounded-br-none scrollb " >
-        {posts.map((post) => {
-       return (
-    <div key={post._id} className="flex border-[#3b3b3b] border ">
-      <div className="p-2">
-        <img className="w-10 ml-5 h-10 object-cover rounded-full" src={post.postById?.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png"} alt="" />
-      </div>
-      <div className="flex-1 p-2">
-
-
-        <div className="flex justify-between items-start ">
-
-   <p className="font-semibold">{post.postById ? post.postById.username : 'Unknown User'}</p>
-
-          <h1 className="text-gray-500 text-lg">...</h1>
+      {status === 'loading' ? (
+  <Mainloading />
+) : (
+  posts.map((post) => {
+    return (
+      <div key={post._id} className="flex border-[#3b3b3b] border">
+        <div className="p-2">
+          <img
+            className="w-10 ml-5 h-10 object-cover rounded-full"
+            src={post.postById?.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
+            alt=""
+          />
         </div>
-        <p className=" pb-2">{post.text}</p>
-        {post.image && <img className="image-main " src={post.image} alt="post" />}
-        <div className="flex items-center gap-8 ">
-          
-          <Likebutton initialLike={post.likes.length} postId={post._id} likedUser={post.likes} />
-          <div className=''>
-            <Image src={comment} alt='' className='hover hover:bg-gray-900 ' onClick={handleButtonClick}/>
+        <div className="flex-1 p-2">
+          <div className="flex justify-between items-start">
+            <p className="font-semibold">{post.postById ? post.postById.username : 'Unknown User'}</p>
+            <h1 className="text-gray-500 text-lg">...</h1>
           </div>
-          <div className=''>
-            <Image src={repost} alt='' className='hover hover:bg-gray-900 w-5' onClick={handleButtonClick}/>
-          </div>
-          <div className=''>
-            <Image src={share} alt='' className='hover hover:bg-gray-900 w-5'onClick={handleButtonClick} />
+          <p className="pb-2">{post.text}</p>
+          {post.image && <img className="image-main" src={post.image} alt="post" />}
+          <div className="flex items-center gap-8">
+            <Likebutton initialLike={post.likes.length} postId={post._id} likedUser={post.likes} />
+            <div>
+              <Image
+                src={comment}
+                alt=""
+                className="hover:bg-gray-900"
+                onClick={handleButtonClick}
+              />
+            </div>
+            <div>
+              <Image
+                src={repost}
+                alt=""
+                className="hover:bg-gray-900 w-5"
+                onClick={handleButtonClick}
+              />
+            </div>
+            <div>
+              <Image
+                src={share}
+                alt=""
+                className="hover:bg-gray-900 w-5"
+                onClick={handleButtonClick}
+              />
+            </div>
           </div>
         </div>
-
       </div>
+    );
+  })
+)}
 
-    </div>
-  );
-})}
 </div>
       </div>
 

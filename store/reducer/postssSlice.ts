@@ -11,6 +11,7 @@ interface User {
     profilePic: string;
 }
 
+
 interface Post {
     _id: string;
     postById: User;
@@ -47,21 +48,21 @@ export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
 
 
 
-// export const addNewPost = createAsyncThunk(
-//     "posts/addNewPost",
-//     async (newPost: { userId: string; text: string; image: string }, { rejectWithValue }) => {
-//         try {
-//             const response = await axiosInstance.post('posts', newPost);
-//             return response.data;
-//         } catch (error: any) {
-//             if (error.response) {
-//                 return rejectWithValue(error.response.data);
-//             } else {
-//                 return rejectWithValue({ message: 'Failed to add new post' });
-//             }
-//         }
-//     }
-// );
+export const addNewPost = createAsyncThunk(
+    "posts/addNewPost",
+    async (newPost: { userId: string; text: string; image: string }, { rejectWithValue }) => {
+        try {
+            const response = await axiosInstance.post('posts', newPost);
+            return response.data;
+        } catch (error: any) {
+            if (error.response) {
+                return rejectWithValue(error.response.data);
+            } else {
+                return rejectWithValue({ message: 'Failed to add new post' });
+            }
+        }
+    }
+);
 const postsSlice = createSlice({
     name: "posts",
     initialState,
@@ -76,8 +77,11 @@ const postsSlice = createSlice({
                 state.error = null;
             })
             .addCase(fetchPosts.fulfilled, (state, action: PayloadAction<Post[]>) => {
-                state.status = "succeeded";
+             
+              
                 state.posts = action.payload;
+              
+               
             })
             .addCase(fetchPosts.rejected, (state, action) => {
                 state.status = "failed";
@@ -86,18 +90,18 @@ const postsSlice = createSlice({
 
 
 
-            // .addCase(addNewPost.pending, (state) => {
-            //     state.status = "loading";
-            //     state.error = null;
-            // })
-            // .addCase(addNewPost.fulfilled, (state, action: PayloadAction<Post>) => {
-            //     state.status = "succeeded";
-            //     state.posts.unshift(action.payload);
-            // })
-            // .addCase(addNewPost.rejected, (state, action) => {
-            //     state.status = "failed";
-            //     state.error = action.error.message || "Error";
-            // });
+            .addCase(addNewPost.pending, (state) => {
+                state.status = "loading";
+                state.error = null;
+            })
+            .addCase(addNewPost.fulfilled, (state, action: PayloadAction<Post>) => {
+                state.status = "succeeded";
+                state.posts.unshift(action.payload);
+            })
+            .addCase(addNewPost.rejected, (state, action) => {
+                state.status = "failed";
+                state.error = action.error.message || "Error";
+            });
     },
 });
 
