@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Sidebar from '@/app/componnts/sidebar/sidebar';
 import Followbtn from '@/app/componnts/Followbtn/followbtn'
  
-import { useAppDispatch, useAppSelector } from '../hookkkk/Appdispatch';
+import { useAppDispatch, useAppSelector } from '../../hookkkk/Appdispatch';
 import { fetchsearch } from '@/store/reducer/usergetSlice';
 
 function Page() {

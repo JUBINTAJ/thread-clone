@@ -137,3 +137,24 @@ body {
   display: block;
 }
 
+nav ul li a{
+  color: antiquewhite;
+  text-decoration: none;
+  font-size: 18px;
+  position: relative;
+ 
+}
+nav ul li a::after{
+ content: '';
+ width: 0;
+ height: 3px;
+ background: #591872;
+ position: absolute;
+ left: 0;
+ bottom: 0;
+ transition: 0.5s;
+}
+nav ul li a:hover::after{
+ width: 100%;
+
+}

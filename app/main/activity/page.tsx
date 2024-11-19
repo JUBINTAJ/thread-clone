@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar from '@/app/componnts/sidebar/sidebar';
-import axiosInstance from '../axios/axiosinstance';
-import { getUserId } from '../lib/utils/getCookie';
+import axiosInstance from '../../axios/axiosinstance';
+import { getUserId } from '../../lib/utils/getCookie';
 
 interface User {
     id:string;

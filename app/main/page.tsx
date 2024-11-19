@@ -18,7 +18,7 @@ import like from '@/Public/img/icons8-like-100 (1).png'
 import comment from '@/Public/img/Img - Comment.svg'
 import repost from '@/Public/img/Img - Repost.svg'
 import share from '@/Public/img/Img - Share.svg'
-import replies from '../componnts/replies/replies'
+import replies from './profile/replies/page'
 import Repost from '@/app/componnts/repost/repost'
 import Mainloading from '@/app/componnts/loadinginall/mainload'
 import { addNewPost } from '@/store/reducer/postssSlice'
@@ -52,9 +52,9 @@ function page() {
 
   // console.log(posts)
   useEffect(() => {
-    const userIdd = localStorage.getItem("userid");
-    if (userIdd && users.length > 0) {
-      const user = users.find((user) => user.id === userIdd);
+    const userId = localStorage.getItem("userid");
+    if (userId && users.length > 0) {
+      const user = users.find((user) => user.id === userId);
       if (user) {
         setCurrentUser(user);
         setUserName(user.username || "");
@@ -71,17 +71,6 @@ function page() {
    
    }
   }, [dispatch,posts])
-
-
-  // useEffect(() => {
-  //   if (currentUser) {
-  //     setUserId(currentUser._id);
-  //     setProfilePic(
-  //       currentUser.profilePic ||
-  //         "https://cdn-icons-png.flaticon.com/512/149/149071.png"
-  //     );
-  //   }
-  // }, [currentUser]);
 
 
   const handli = () => {
@@ -103,54 +92,6 @@ function page() {
     })
   }
 
-
-
-
-
-
-
-
-
-
-  // const handlePostChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-  //   setPostContent(event.target.value);
-  // };
-
-  // const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = e.target.files?.[0];
-  //   if (file) {
-  //     setPostImage(file);
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       setPreview(reader.result as string);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
-
-  // const handlePostSubmit = async () => {
-  //   if (postContent.trim() === "") {
-  //     alert("Please write something before posting!");
-  //     return;
-  //   }
-  //   if (!currentUser) {
-  //     alert("User not found! Please log in.");
-  //     return;
-  //   }
-  //   const newPost = {
-  //     userId: currentUser.id,
-  //     text: postContent,
-  //     image: postImage,
-  //   };
-
-  //   dispatch(addNewPost(newPost));
-  //   setPostContent("");
-  // };
-
-
-
-
-  console.log('Current User:', currentUser);
   
 
   const userIdd = localStorage.getItem("userid");
@@ -224,11 +165,11 @@ function page() {
             <p 
          
             className="font-semibold">{post.postById?.username ||'gvb n'}</p>
-            <h1 className="text-gray-500 text-lg">...</h1>
+            <h1 className="text-gray-500 text-lg">......</h1>
           </div>
           <p className="pb-2">{post.text}</p>
-          {post.image && <img className="image-main" src={post.image} alt="post" />}
-          <div className="flex items-center gap-8">
+          {post.image && <img className="image-main    border border-[#3b3b3b]" src={post.image} alt="post" />}
+          <div className="flex items-center gap-4 mt-4">
             <LikeButton
               initialLike={post.likes.length}
               postId={post._id}
@@ -278,7 +219,7 @@ function page() {
       </div>
    
 
- {repostData && (
+          {repostData && (
         <Repost 
         isopen={!!repostData}
         onclose={()=>setRepostData(null)}

@@ -55,7 +55,7 @@ function sidebar() {
                 </div>
               </Link>
 
-              <Link href={'/search'}>
+              <Link href={'/main/search'}>
                 <div className='hover:bg-gray-900 p-2 rounded-xl transition duration-200'>
                   <Image src={search} alt='search' className='w-8' />
                 </div>
@@ -82,7 +82,7 @@ function sidebar() {
 
 
 
-              <Link href={"/activity"}>
+              <Link href={"/main/activity"}>
 
               <div className='hover:bg-gray-900 p-2 rounded-xl transition duration-200'>
                 <Image src={like} alt='like' className='w-8' />
@@ -90,7 +90,7 @@ function sidebar() {
               </Link>
 
 
-              <Link href={"/componnts/profile"}>
+              <Link href={"/main/profile"}>
 
 
                 <div className='hover:bg-gray-900 p-2 rounded-xl transition duration-200'>

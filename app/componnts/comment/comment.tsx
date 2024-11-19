@@ -79,6 +79,7 @@ const Comment: React.FC<PostProps> = ({ isopen, onclose, postId, userId, userpro
             onclose();
             dispatch(fetchPosts()); 
             setError(null); 
+            console.log('ssss',fetchPosts())
         } catch (error) {
             console.error('Error posting reply:', error);
             setError('Failed to post reply. Please try again.');
