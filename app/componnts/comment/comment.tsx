@@ -154,7 +154,7 @@ const userId = localStorage.getItem("userid")
                     )}
 
                     <div className="mb-3"></div>
-                    <div className="space-y-2">
+                    {/* <div className="space-y-2">
                        {replies.length > 0 ? (
                             [...replies].reverse().map((reply, index) => (
                                 <div key={index} className="flex items-start mb-2">
@@ -168,7 +168,7 @@ const userId = localStorage.getItem("userid")
                         ) : (
                             <p className="text-white text-center text-sm">No replies</p>
                         )}
-                    </div> 
+                    </div>  */}
                 </div>
 
                 <div className="p-2">

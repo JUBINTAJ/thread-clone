@@ -22,6 +22,7 @@ import replies from './profile/replies/page'
 import Repost from '@/app/componnts/repost/repost'
 import Mainloading from '@/app/componnts/loadinginall/mainload'
 import { addNewPost } from '@/store/reducer/postssSlice'
+import Reply from '@/app/componnts/Reply/Reply'
 // import { Like }  from '@/Public/img/heart (1).png'
 
 
@@ -32,6 +33,7 @@ function page() {
   const [onopen, setonopen] = useState(false)
   const[selectcmt,setselectcmt]=useState<any>(null)
   const [repostData, setRepostData] = useState<any>(null);  
+  const[reply ,setreply]=useState<any>(null)
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [username, setUserName] = useState<string>("");
   const [postContent, setPostContent] = useState<string>("");
@@ -39,6 +41,8 @@ function page() {
   const [preview, setPreview] = useState<string | null>(null);
   const [userId, setUserId] = useState<string>("");
   const [userProfilePic, setProfilePic] = useState<string>("");
+  const [isModal, setIsModal] = useState(false);
+
 
   // const [users, setUser] = useState<any>(null);
   const { users ,user } = useAppSelector((state) => state.userget)
@@ -89,11 +93,16 @@ function page() {
      
   }
 
-  
+  const openmodalreply=(post : any)=>{
+    setreply(post)
+  }
 
 
 
-
+   
+  // const handleLogoutClick = () => {
+  //   setIsModal(true);
+  // };
 
   
 
@@ -164,7 +173,9 @@ function page() {
             <h1 className="text-gray-500 text-lg">...</h1>
           </div>
           <p className="pb-2">{post.text}</p>
-          {post.image && <img className="image-main    border border-[#3b3b3b]" src={post.image} alt="post" />}
+          {post.image && <img className="image-main    border border-[#3b3b3b]" src={post.image} alt="post"
+            onClick={() => openmodalreply(post)} />}
+          {/* <Reply isOpen={isModal} onClose={()=>setIsModal(false)} /> */}
           <div className="flex items-center gap-4 mt-4">
             <LikeButton
               initialLike={post.likes.length}
@@ -180,7 +191,7 @@ function page() {
             </div>
             <div
               className="w-[60px] h-[30px] flex justify-center items-center rounded-[20px] gap-1 hover:bg-[rgb(56,52,52)] transition-all duration-500 ease-in  "
-              onClick={   () => { if(onopen) {opennmodal(repost)} else if(onclose) {onclose()}}}
+              onClick={   () => opennmodal(repost)}
             >
               <Image src={repost} alt="" />
               <span className="text-sm ml-1">{post.reposts.length}</span>
@@ -212,6 +223,17 @@ function page() {
 
 
       </div>
+      {reply && (
+        <Reply  
+        isOpen={!!reply}
+        onClose={()=>setreply(null)}
+        postId={reply._id}
+        userprofilpic={user?.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png" }
+        username={reply.username }
+
+
+        />
+      )}
    
 
           {repostData && (
