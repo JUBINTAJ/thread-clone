@@ -156,5 +156,20 @@ nav ul li a::after{
 }
 nav ul li a:hover::after{
  width: 100%;
+}
+.line-container {
+  display: flex;
+  justify-content: ;
+  align-items: ; 
+  margin-left: 4px;
+  margin-bottom: 10px 
+}
 
+/* Vertical Line Style */
+.vertical-line {
+  width: 2px; /* Width of the line */
+  height: 150px; /* Adjust the height as needed */
+  background-color: #3b3b3b; /* Line color */
+  top: 0;
+  bottom: 0;
 }

@@ -6,11 +6,14 @@ import EditProfileModal from '@/app/componnts/editprofile/editprofile';
 import { useAppSelector, useAppDispatch } from '@/app/hookkkk/Appdispatch';
 import { fetchPostByUserId } from '@/store/reducer/postSlice';
 import Link from 'next/link';
+import Followers from '@/app/componnts/followers/followers' 
 
 const ProfilePage: React.FC = () => {
     const [user, setUser] = useState<any>(null);
     const [status, setStatus] = useState<'initial' | 'loading' | 'success' | 'failed'>('initial');
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModal, setIsModal] = useState(false);
+
     const dispatch = useAppDispatch();
     const { post } = useAppSelector((state) => state.post);
 
@@ -38,6 +41,13 @@ const ProfilePage: React.FC = () => {
         fetchData();
     }, [dispatch]);
 
+
+    
+  const handleLogoutClick = () => {
+    setIsModal(true);
+  };
+
+
     if (status === 'failed') {
         return <p className='flex justify-center items-center  prata-regular'>Error loading user data.</p>;
     }
@@ -61,7 +71,8 @@ const ProfilePage: React.FC = () => {
                             </div>
                         </div>
                         <p className="text-gray-200 mb-2">{user.bio}</p>
-                        <p className="text-gray-400 mb-4">{user.followers.length} Followers</p>
+                        <p className="text-gray-400 mb-4" onClick={handleLogoutClick} >{user.followers.length} Followers</p>
+                        <Followers isOpen={isModal} onClose={()=>setIsModal(false)} />
                         <button
                             className="border border-[#554e4e] w-full h-10 rounded-xl hover:text-black hover:bg-white mt-4"
                             onClick={() => setIsModalOpen(true)}

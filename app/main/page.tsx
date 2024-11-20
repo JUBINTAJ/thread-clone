@@ -85,16 +85,12 @@ function page() {
   }
 
   const opennmodal = (repost:any)=>{
-    setRepostData({
-      postId: repost._id,
-      userProfilePic: repost.postById?.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png",
-      username: repost.postById?.username || 'Unknown User',
-    })
+    setRepostData(repost)
+     
   }
 
   
 
-  const userIdd = localStorage.getItem("userid");
 
 
 
@@ -165,7 +161,7 @@ function page() {
             <p 
          
             className="font-semibold">{post.postById?.username ||'gvb n'}</p>
-            <h1 className="text-gray-500 text-lg">......</h1>
+            <h1 className="text-gray-500 text-lg">...</h1>
           </div>
           <p className="pb-2">{post.text}</p>
           {post.image && <img className="image-main    border border-[#3b3b3b]" src={post.image} alt="post" />}
@@ -184,7 +180,7 @@ function page() {
             </div>
             <div
               className="w-[60px] h-[30px] flex justify-center items-center rounded-[20px] gap-1 hover:bg-[rgb(56,52,52)] transition-all duration-500 ease-in  "
-              onClick={() => opennmodal(repost)}
+              onClick={   () => { if(onopen) {opennmodal(repost)} else if(onclose) {onclose()}}}
             >
               <Image src={repost} alt="" />
               <span className="text-sm ml-1">{post.reposts.length}</span>
@@ -207,9 +203,8 @@ function page() {
         isopen={!!selectcmt}
         onclose={()=>setselectcmt(null)}
         postId={selectcmt._id}
-        userId={userId || ""}
         userprofilpic={user?.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png" }
-        username={user?.username || 'Anonymous'}
+        username={selectcmt.username }
 
 
         />
@@ -224,7 +219,7 @@ function page() {
         isopen={!!repostData}
         onclose={()=>setRepostData(null)}
         postId={repostData._id}
-        userprofilpic={repostData.userProfilePic}
+        userprofilpic={repostData.userProfilePic ||  "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
         username={repostData.username } 
 
 

@@ -73,7 +73,7 @@ const Page: React.FC = () => {
         }
         setstatus('failed'); 
       }
-    } catch (error: any) {
+    } catch (error: any) {  
       console.log(error);
       setstatus('failed');
       seterror('An error occurred. Please try again later.');

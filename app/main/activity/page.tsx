@@ -49,7 +49,7 @@ async function getnotification(){
 
                 <div className='ml-3 py-2 '>
               {notification.length === 0 ? (
-                    <p>No notifications available...</p>
+                    <p className='flex justify-center prata-regular'>No notifications available...</p>
               ) : (
                
                 notification.map((notification) => (

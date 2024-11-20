@@ -6,7 +6,8 @@ import home from "@/Public/img/home (3).png"
 import like from '@/Public/img/Img - Like.svg'
 import plus from '@/Public/img/plus.png'
 import search from '@/Public/img/loupe.png'
-import user from '@/Public/img/user (1).png'
+import user from '@/Public/img/Img - Profile.svg'
+import userone from '@/Public/img/Img - Profile (2).svg'
 import pin from '@/Public/img/pin (1).png'
 import menu from '@/Public/img/menu (1).png'
 import Image from 'next/image'
@@ -14,12 +15,16 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import Addpost from '@/app/componnts/addpost/addpost'
 import Modal from '@/app/componnts/modal/modal'
+import Likett from '@/Public/img/Vector (2).svg'
+
 
 
 function sidebar() {
 
   const [onopen, setonopen] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [liked, setLiked] = useState(false);
+
 
   const handleLogoutClick = () => {
     setIsModalOpen(true);
@@ -44,7 +49,7 @@ function sidebar() {
                 src={therad}
                 alt='img'
                 className='w-10'
-              />
+                />
             </div>
 
             <div className='flex flex-col space-y-4 items-center mt-56  ' >
@@ -84,8 +89,8 @@ function sidebar() {
 
               <Link href={"/main/activity"}>
 
-              <div className='hover:bg-gray-900 p-2 rounded-xl transition duration-200'>
-                <Image src={like} alt='like' className='w-8' />
+              <div className='hover:bg-gray-900 p-2 rounded-xl transition duration-200' onClick={()=>setLiked(!liked)}>
+                <Image src={liked ? Likett : like} alt='like' className='w-8' />
               </div>
               </Link>
 

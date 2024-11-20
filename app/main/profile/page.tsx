@@ -11,10 +11,20 @@ import comment from '@/Public/img/Img - Comment.svg';
 import repost from '@/Public/img/Img - Repost.svg';
 import Comment from '@/app/componnts/comment/comment';
 import Repost from '@/app/componnts/repost/repost';
+import Modal from '@/app/componnts/modal/modal2'
 
 const PostPage = () => {
   const dispatch = useAppDispatch();
   const [onopen, setonopen] = useState(false);
+
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+
+  const handleLogoutClick = () => {
+    setIsModalOpen(true);
+  };
+
 
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -129,8 +139,9 @@ const PostPage = () => {
                 />
                 <div className="ml-4   flex justify-between items-start">
                   <h3 className="text-white font-semibold">{post.username || 'mimin_1234'}</h3>
-                  <h1 className="text-gray-500 text-lg ml-[400px] ">...</h1>
-
+                  <h1 className="text-gray-500 text-lg ml-[400px] " onClick={handleLogoutClick} >...</h1>
+                      
+                      <Modal isOpen={isModalOpen}  onClose={()=> setIsModalOpen(false)} postId={post.id} />
                 </div>
                 {/* <div className="ml-auto">
                   {selectedPostId === post.id && (

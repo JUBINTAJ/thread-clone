@@ -15,7 +15,7 @@ export default function Modal({ isOpen, onClose }) {
     return (
       <div className="fixed inset-0 z-50 flex items-end justify-start ">
       <div className="ml-6 mb-5">
-        <div className="bg-[#5654543b] text-white rounded-2xl p-6 w-64">
+        <div className="bg-[#2C2C2C] text-white rounded-2xl p-6 w-64">
           <button onClick={onClose} className="justify-center items-center">...</button>
           <ul className="space-y-4">
             <li className="cursor-pointer hover:bg-gray-700 px-2 py-1 h-10 w-[225px] mr-7 rounded-2xl">Appearance</li>
