@@ -44,7 +44,7 @@ export  const fetchUser = createAsyncThunk (
     try {
         const userId = localStorage.getItem("userid")
       const response = await axiosInstance.get(`users/${userId}`);
-       console.log(response.data.user) 
+    //    console.log(response.data.user) 
        return response.data.user
 
 

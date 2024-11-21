@@ -19,7 +19,6 @@ interface EditProfileModalProps {
 const EditProfileModal: React.FC<EditProfileModalProps> = ({ isopen, onclose, children }) => {
   const dispatch = useAppDispatch();
   const { userupdate } = useAppSelector((state) => state.user);
-
   const [name, setName] = useState<string>('');
   const [username, setUsername] = useState<string>('');
   const [bio, setBio] = useState<string>('');
@@ -44,12 +43,14 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ isopen, onclose, ch
             const res = await axiosInstance.get(`users/${userId}`);
             const userdata = res.data.user;
 
+
             setName(userdata.name);
             setUsername(userdata.username); 
             setBio(userdata.bio);
             setEmail(userdata.email);
             setProfile(userdata.profilePic || 'https://cdn-icons-png.flaticon.com/512/149/149071.png');
             setLoading(false);
+            
           } catch (error) {
             console.log('Error fetching user data:', error);
             setLoading(false);
@@ -62,52 +63,51 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ isopen, onclose, ch
 
 
 
+  console.log('looooo',profile); 
 
 
 
-  const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfile(reader.result as string);  
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+  // const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = e.target.files?.[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       setProfile(reader.result as string);  
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
+
+
+
   const handle = async () => {
     const userId = localStorage.getItem('userid');
     if (userId) {
       try {
         setLoading(true);
+        console.log('Profile data before update:', { name, username, bio, email,profile});
+  
         const res = await axiosInstance.patch(`users/${userId}`, {
           name,
           username,
           bio,
           email,
-          profile,
+          profilePic: profile, 
         });
-
-        dispatch(userupdateee(res.data));  
-
-
-        const updatedUser = res.data.user;
-
-
-        setName(updatedUser.name);
-        setUsername(updatedUser.username); 
-        setBio(updatedUser.bio);
-        setEmail(updatedUser.email);
-        setProfile(updatedUser.profilePic || 'https://cdn-icons-png.flaticon.com/512/149/149071.png');
+  
+        dispatch(userupdateee(res.data));
+  
         setLoading(false);
-        onclose();  
-          
+        onclose();
       } catch (error) {
         console.log('Error updating user data:', error);
         setLoading(false);
       }
     }
   };
+  
+
+
 
   if (!isopen) return null;
 
@@ -158,20 +158,19 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ isopen, onclose, ch
                   type="file"
                   accept="image/*"
                   className="absolute inset-0 opacity-0 cursor-pointer"
-                //   onChange={(e) => {
-                //     const file = e.target.files?.[0];
-                //     if (file) {
-                //       const reader = new FileReader();
-                //       reader.onloadend = () => {
-                //         setProfile(reader.result as string);  
-                //     }
-                //     reader.readAsDataURL(file);
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      const reader = new FileReader();
+                      reader.onloadend = () => {
+                        setProfile(reader.result as string);  
+                    }
+                    reader.readAsDataURL(file);
 
-                //   }}
-                // }
+                  }}
+                }
 
-                onChange={handleImage}
-                ref={fileInputRef}
+               
                 />
                 <label className="flex items-center text-gray-300 cursor-pointer hover:text-white">
                   <button className="ml-2 mt-5 border border-black text-white-500 hover:text-white transition h-10 w-40 rounded-lg">

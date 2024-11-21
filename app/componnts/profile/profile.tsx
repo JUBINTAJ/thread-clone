@@ -82,7 +82,7 @@ const ProfilePage: React.FC = () => {
                     </div>
                 )}
 
-                <div className='flex justify-around mt-8 gap-5'>
+                <div className='flex justify-around mt-8 gap-5 '>
                     <Link href="/main/profile" className="text-gray-200 hover:text-white">
                         Threads
                     </Link>
@@ -94,7 +94,7 @@ const ProfilePage: React.FC = () => {
                     </Link>
                 </div>
 
-                <div className="w-full h-px bg-[#554e4e] mt-4"></div>
+                <div className="w-full h-px bg-[#554e4e] mt-4 "></div>
 
                 <div className="mt-5">
                 </div>

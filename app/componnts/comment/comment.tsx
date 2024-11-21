@@ -6,6 +6,7 @@ import { fetchPosts } from '@/store/reducer/postssSlice';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Loading from '../loading/loading';
+import iconsstore from '@/app/componnts/icons/icons'
 
 interface Reply {
     text: string;
@@ -41,7 +42,11 @@ const Comment: React.FC<PostProps> = ({ isopen, onclose, postId, userId, userpro
     const [comment, setComment] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
-    const dispatch = useAppDispatch();
+    const dispatch = useAppDispatch(); 
+
+
+const {icon} = iconsstore()
+
 
     const { user } = useAppSelector((state) => state.userget);
 
@@ -149,6 +154,10 @@ const userId = localStorage.getItem("userid")
                             />
                             <div className="text-white font-medium">
                                 {user.username}
+                            </div>
+                            <div className='w-3'>
+
+                            {icon.images}
                             </div>
                         </div>
                     )}

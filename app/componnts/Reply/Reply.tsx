@@ -1,5 +1,3 @@
-'use client';
-
 import axiosInstance from '@/app/axios/axiosinstance';
 import { useAppDispatch, useAppSelector } from '@/app/hookkkk/Appdispatch';
 import { fetchPosts } from '@/store/reducer/postssSlice';
@@ -38,8 +36,6 @@ const Comment: React.FC<PostProps> = ({ isOpen, onClose, postId }) => {
     const [post, setPost] = useState<Post | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
-    const { user } = useAppSelector((state) => state.userget);
-    const dispatch = useAppDispatch();
 
     useEffect(() => {
         if (isOpen) {
@@ -63,9 +59,8 @@ const Comment: React.FC<PostProps> = ({ isOpen, onClose, postId }) => {
     const replies = post?.replies ?? [];
 
     return (
-        <div className="fixed inset-0 z-50 flex justify-center items-center bg-opacity-50">
-            <div className="bg-[#181818] rounded-xl shadow-lg w-[500px] h-[600px] flex flex-col border border-[#3b3b3b] scrollb">
-                {/* Header */}
+        <div className="fixed inset-0 z-50 flex justify-center items-start ml-[72px] mt-16 bg-opacity-50">
+            <div className="bg-[#181818] rounded-xl shadow-lg w-full md:w-[630px] h-auto md:h-[895px] flex flex-col border-b-0 border border-[#3b3b3b] rounded-tl-[30px] rounded-tr-[30px] rounded-bl-none rounded-br-none overflow-y-auto  scrollb">
                 <div className="flex justify-between items-center my-5 px-10">
                     <button
                         onClick={onClose}
@@ -81,8 +76,7 @@ const Comment: React.FC<PostProps> = ({ isOpen, onClose, postId }) => {
 
                 <div className="w-full h-px bg-[#444] mb-4"></div>
 
-                {/* Post Content */}
-                <div className="flex-1 no-scrollbar overflow-y-auto px-3">
+                <div className="flex-1 overflow-y-auto px-4">
                     {loading && (
                         <p className="text-white text-center">Loading...</p>
                     )}
@@ -93,7 +87,7 @@ const Comment: React.FC<PostProps> = ({ isOpen, onClose, postId }) => {
                         <div className="mb-4 px-4">
                             <div className="flex items-start mb-4">
                                 <img
-                                    className="w-10 h-10 rounded-full object-cover mr-4"
+                                    className="w-12 h-12 rounded-full object-cover mr-4"
                                     src={
                                         post.postById.userprofilpic ||
                                         'https://cdn-icons-png.flaticon.com/512/149/149071.png'
@@ -110,7 +104,7 @@ const Comment: React.FC<PostProps> = ({ isOpen, onClose, postId }) => {
                                 </div>
                             </div>
                             {post.image && (
-                                <div className="relative w-full mb-3 ">
+                                <div className="relative w-full mb-3">
                                     <img
                                         src={post.image}
                                         alt="Post"
@@ -121,36 +115,38 @@ const Comment: React.FC<PostProps> = ({ isOpen, onClose, postId }) => {
                         </div>
                     )}
 
-                    {/* Replies */}
                     <div className="space-y-2">
                         {replies.length > 0 ? (
                             [...replies].reverse().map((reply, index) => (
                                 <div
                                     key={index}
-                                    className="flex items-start mb-2"
+                                    className="flex items-center justify-between gap-4 mb-4 ml-4"
                                 >
+                                               <div className="flex items-center gap-4">
+
                                     <img
-                                        className="w-10 h-10 rounded-full mr-2"
+                                        className="w-12 h-12 rounded-full object-cover mr-4"
                                         src={
                                             reply.userprofilpic ||
                                             'https://cdn-icons-png.flaticon.com/512/149/149071.png'
                                         }
                                         alt="Reply User"
                                     />
-                                    <div className="bg-[#181818] p-2.5 rounded-lg text-white w-full">
-                                        <p className="font-bold text-sm mb-0.5">
+                                    <div className="flex-1">
+                                        <p className="font-bold text-white text-sm mb-1">
                                             {reply.username}
                                         </p>
-                                        <p className="break-words text-sm">
+                                        <p className="text-white text-sm mb-1">
                                             {reply.text}
                                         </p>
                                     </div>
+                                    </div>
+
+                                    <div className="w-full h-px bg-[#444] mt-2"></div>
                                 </div>
                             ))
                         ) : (
-                            <p className="text-white text-center text-sm">
-                                No replies
-                            </p>
+                            <p className="text-white text-center mt-4">No replies yet.</p>
                         )}
                     </div>
                 </div>
