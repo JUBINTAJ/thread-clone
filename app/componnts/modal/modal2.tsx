@@ -40,10 +40,10 @@ export default function Modal({ isOpen, onClose, postId }: { isOpen: boolean; on
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-60">
-      <div className="bg-[#2C2C2C] text-white rounded-2xl p-6 w-64 shadow-lg">
+    <div className="fixed inset-0 z-50   bg-opacity-60" onClick={onClose}>
+      <div className="bg-[#2C2C2C] text-white rounded-2xl p-6 w-64 shadow-lg relative top-[500px] left-[1320px]">
         <div className="flex justify-end mb-4">
-          <button onClick={onClose} className="text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
+          {/* <button onClick={onClose} className="text-gray-500 hover:text-gray-800 text-2xl"></button> */}
         </div>
 
         <ul className="space-y-4">

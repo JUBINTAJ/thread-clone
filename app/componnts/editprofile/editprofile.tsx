@@ -63,7 +63,6 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ isopen, onclose, ch
 
 
 
-  console.log('looooo',profile); 
 
 
 
@@ -112,7 +111,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ isopen, onclose, ch
   if (!isopen) return null;
 
   return (
-    <div className="fixed inset-0 w-full h-full bg-black bg-opacity-70 flex justify-center items-center z-[1000]">
+    <div className="fixed inset-0 w-full h-full bg-black bg-opacity-70 flex justify-center items-center z-[1000]" onClick={onclose}>
       <div className="bg-[#2C2C2C] p-6 md:p-8 w-[550px] ml-14 rounded-lg shadow-lg relative animate-fadeIn border border-[#444]">
         <div className="flex justify-between items-center mb-4">
           <button onClick={onclose} className="text-gray-400 hover:text-white transition">

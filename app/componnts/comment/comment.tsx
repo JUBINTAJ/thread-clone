@@ -91,7 +91,6 @@ const userId = localStorage.getItem("userid")
             setLoading(false);
         }
     };
-    // console.log('Sending reply:', replies);
     console.log('User state:', user);
     
     if (!isopen) return null;
@@ -99,7 +98,7 @@ const userId = localStorage.getItem("userid")
     const replies = post?.replies ?? [];
 
     return (
-        <div className="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50">
+        <div className="fixed inset-0 z-50 flex justify-center items-center  bg-opacity-50" onClick={onclose}>
             <div className="bg-[#181818] rounded-xl shadow-lg w-[500px] h-[600px] flex flex-col border border-[#3b3b3b]">
                 <div className='flex justify-between items-center my-5 px-10'>
                     <button onClick={onclose} className="text-white hover:text-black transition">Cancel</button>

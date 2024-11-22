@@ -173,3 +173,11 @@ nav ul li a:hover::after{
   top: 0;
   bottom: 0;
 }
+.body-home{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: aliceblue;
+  height: 920px;
+}

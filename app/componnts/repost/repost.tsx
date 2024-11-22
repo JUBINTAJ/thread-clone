@@ -32,9 +32,8 @@ const handle = async()=>{
   // console.log('user',username)
 
   try{
-    const res=await axiosInstance.post(`posts/repost/${postId}`, Repost)
+    await axiosInstance.post(`posts/repost/${postId}`, Repost)
     postId='';
-    return res.data.username
 
 dispatch(fetchPosts())
 onclose()
@@ -49,17 +48,8 @@ onclose()
 if(!isopen) return null
 
   return (
-    <div className="fixed inset-0 flex justify-center items-center z-50">
-    <div className="bg-[#181818] rounded-xl shadow-lg w-[300px] h-[100px] flex flex-col border border-[#3b3b3b]">
-      {/* <div className="flex justify-between items-center p-4">
-        <button
-          onClick={onclose}
-          className="text-gray-500 hover:text-gray-800 text-xl"
-        >
-          &times;
-        </button>
-      </div> */}
-  
+    <div className="fixed inset-0 flex justify-center items-center z-50" onClick={onclose}>
+    <div className="bg-[#181818] rounded-xl shadow-lg w-[300px] h-[100px] flex flex-col border border-[#3b3b3b]">  
       <div className="flex flex-col space-y-3 p-1 justify-start items-start">
         <button
           onClick={handle}
