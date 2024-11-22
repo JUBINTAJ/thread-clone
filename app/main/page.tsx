@@ -24,8 +24,8 @@ import Mainloading from '@/app/componnts/loadinginall/mainload'
 import { addNewPost } from '@/store/reducer/postssSlice'
 import Reply from '@/app/componnts/Reply/Reply'
 // import { Like }  from '@/Public/img/heart (1).png'
-import arrow from '@/Public/img/Chevron Circle Down.svg'
-
+import arrow from '@/Public/img/Down Button.svg'
+import Modal from '@/app/componnts/modal/modal3'
 
 
 
@@ -45,6 +45,7 @@ function page() {
   const [userProfilePic, setProfilePic] = useState<string>("");
   const [isModal, setIsModal] = useState(false);
   const [postId, setPostId] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
 
 
@@ -53,6 +54,9 @@ function page() {
   const { posts, status } = useAppSelector((state) => state.posts)
 
 
+  const handleLogoutClick = () => {
+    setIsModalOpen(true);
+  };
 
 
   const dispatch = useAppDispatch()
@@ -123,7 +127,8 @@ function page() {
         <div className=''>
 
         </div>
-        <p className='  text-center pt-8 prata-regular '>For you  <span><Image src={arrow} alt='' />mn</span></p>
+        <p className='  text-center pt-8 prata-regular '>For you  <span className='w-2' onClick={handleLogoutClick}><Image src={arrow} alt='' /></span></p>
+        <Modal isOpen={isModalOpen}  onClose={()=> setIsModalOpen(false)}   />
 
         <div className="bg-[#5654543b] w-full md:w-[630px] h-auto md:h-[865px] mt-3 border-b-0 border border-[#3b3b3b] rounded-tl-[30px] rounded-tr-[30px] rounded-bl-none rounded-br-none scrollb">
           {user && (

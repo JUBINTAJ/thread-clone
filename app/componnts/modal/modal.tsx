@@ -12,6 +12,11 @@ export default function Modal({ isOpen, onClose }) {
         router.push('/login')
     
       })
+
+      const logoute = (() => {
+        router.push('/login')
+    
+      })
     return (
       <div className="fixed inset-0 z-50 flex items-end justify-start " onClick={onClose} >
       <div className="ml-6 mb-5">
@@ -28,6 +33,13 @@ export default function Modal({ isOpen, onClose }) {
             >
               Log out
             </li>
+            <li
+              className="cursor-pointer hover:bg-gray-700 px-2 py-1 h-10 w-[225px] rounded-2xl "
+              onClick={logoute}
+            >
+              Log in
+            </li>
+
           </ul>
         </div>
       </div>
