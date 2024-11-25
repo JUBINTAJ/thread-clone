@@ -16,6 +16,7 @@ interface Follower {
 }
 
 const Modal: React.FC<Follow> = ({ isOpen, onClose }) => {
+
   const [followers, setFollowers] = useState<Follower[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -28,7 +29,6 @@ const Modal: React.FC<Follow> = ({ isOpen, onClose }) => {
         setLoading(false);
         return;
       }
-
       try {
         const response = await axiosInstance.get(`users/followers/${userId}`);
         setFollowers(response.data.user.followers); 
@@ -46,7 +46,7 @@ const Modal: React.FC<Follow> = ({ isOpen, onClose }) => {
 
   return (
 <div className="fixed inset-0 w-full h-full bg-opacity-70 flex justify-center items-start z-[1000] mt-10">
-  <div className="bg-[#2C2C2C] p-6 md:p-8 w-[550px] h-auto pb-4 rounded-2xl shadow-lg relative animate-fadeIn border border-[#3b3b3b]">
+  <div className="bg-[#2C2C2C] p-6 md:p-8 w-[550px] h-auto pb-4 rounded-2xl shadow-lg relative animate-fadeIn border border-[#3b3b3b] scrollb">
     <div className="flex justify-between items-center mb-4">
       <button
         onClick={onClose}
@@ -83,9 +83,9 @@ const Modal: React.FC<Follow> = ({ isOpen, onClose }) => {
                 <p className="text-gray-400 text-sm">{follower.username}</p>
               </div>
             </div>
-            <button className="border border-[#3b3b3b] text-white hover:text-white  transition rounded-xl px-3 py-1">
+            {/* <button className="border border-[#3b3b3b] text-white hover:text-white  transition rounded-xl px-3 py-1">
               Follow back
-            </button>
+            </button> */}
           </div>
           
             <div className="w-full h-px bg-[#3b3b3b] "></div>

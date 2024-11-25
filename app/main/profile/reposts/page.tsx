@@ -38,7 +38,6 @@ const Page = () => {
   const [repostData, setRepostData] = useState<Replys | null>(null);
   const [postId, setPostId] = useState<string | null>(null);
 
-  // Fetch repost data
   const fetchReposts = async () => {
     const userId = localStorage.getItem('userid');
     if (!userId) {
@@ -71,7 +70,7 @@ const Page = () => {
 
   if (error) {
     console.log('Error:', error);
-    return <div>Error: {error}</div>;
+    return <div className='flext justify-center prata-regular'>Error: {error}</div>;
   }
 
   console.log('Reposts data:', reposts);
@@ -110,7 +109,6 @@ const Page = () => {
               />
             )}
 
-            {/* Interaction Bar (Likes, Comments, Reposts) */}
             <div className="flex items-center gap-4 mt-4">
               <LikeButton
                 initialLike={item.likes.length}
@@ -133,7 +131,6 @@ const Page = () => {
               </div>
             </div>
 
-            {/* Conditional Rendering of Comment and Repost Modals */}
             {selectedComment && (
               <Comment
                 isopen={!!selectedComment}

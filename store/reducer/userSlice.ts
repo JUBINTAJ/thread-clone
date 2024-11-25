@@ -61,19 +61,6 @@ export const  userupdateee=createAsyncThunk(
             } 
 )
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 const userSlice=createSlice({
 
     name:'user',

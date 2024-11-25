@@ -1,5 +1,5 @@
 'use client'
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import bg from '../../../Public/img/bg.webp';
 import Link from 'next/link';
@@ -18,17 +18,10 @@ const Page: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [stutas, setstatus] = useState<'initail' | 'loading' | 'success' | 'failed'>('initail')
   const [error, seterror] = useState<string | null>(null)
-
   const [show, setshow] = useState(false)
-
-
 
   const dispatch = useAppDispatch();
   const router = useRouter();
-
-
-
-
 
 
   // const handling = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -48,20 +41,16 @@ const Page: React.FC = () => {
 
   // }
 
-
-
   const handling = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    setstatus('loading'); 
+    setstatus('loading');
 
     try {
-        const user = await loginuser({ username, password });
-
-      
+      const user = await loginuser({ username, password });
       if (user && user._id) {
         const userId = user._id;
-        localStorage.setItem('userid',userId)
+        localStorage.setItem('userid', userId)
         await setCookie(userId)
         router.push('/main');
         setstatus('success');
@@ -71,9 +60,9 @@ const Page: React.FC = () => {
         } else {
           seterror('Invalid username or password.');
         }
-        setstatus('failed'); 
+        setstatus('failed');
       }
-    } catch (error: any) {  
+    } catch (error: any) {
       console.log(error);
       setstatus('failed');
       seterror('An error occurred. Please try again later.');
@@ -81,10 +70,6 @@ const Page: React.FC = () => {
       setLoading(false);
     }
   };
-  
-
-
-
 
   return (
     <div className="relative w-full h-screen">
@@ -129,17 +114,10 @@ const Page: React.FC = () => {
                 </button>
               </div>
               {stutas === 'failed' && username && password && (
-  <div className="mt-2 p-3 bg-red-100 border border-red-500 rounded-md text-red-600 text-sm">
-    <strong>Error:</strong> {error || 'Invalid username or password. Please try again.'}
-  </div>
-)}
-
-
-
-
-
-
-
+                <div className="mt-2 p-3 bg-red-100 border border-red-500 rounded-md text-red-600 text-sm">
+                  <strong>Error:</strong> {error || 'Invalid username or password. Please try again.'}
+                </div>
+              )}
               <button
                 type="submit"
                 className="bg-white rounded-xl block w-full h-14 px-3 py-3 mt-2 text-gray-900 hover:bg-gray-200 focus:ring-2 focus:ring-gray-300"

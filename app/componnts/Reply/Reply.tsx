@@ -33,6 +33,7 @@ interface PostProps {
 }
 
 const Comment: React.FC<PostProps> = ({ isOpen, onClose, postId }) => {
+
     const [post, setPost] = useState<Post | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
@@ -60,7 +61,7 @@ const Comment: React.FC<PostProps> = ({ isOpen, onClose, postId }) => {
 
     return (
         <div className="fixed inset-0 z-50 flex justify-center items-start ml-[72px] mt-16 bg-opacity-50">
-            <div className="bg-[#181818] rounded-xl shadow-lg w-full md:w-[630px] h-auto md:h-[895px] flex flex-col border-b-0 border border-[#3b3b3b] rounded-tl-[30px] rounded-tr-[30px] rounded-bl-none rounded-br-none overflow-y-auto  scrollb">
+            <div className="bg-[#181818] rounded-xl shadow-lg w-full md:w-[630px] h-auto md:h-[895px] flex flex-col border border-[#3b3b3b] rounded-tl-[30px] rounded-tr-[30px] rounded-bl-none rounded-br-none overflow-y-auto  scrollb">
                 <div className="flex justify-between items-center my-5 px-10">
                     <button
                         onClick={onClose}
@@ -73,9 +74,7 @@ const Comment: React.FC<PostProps> = ({ isOpen, onClose, postId }) => {
                     </p>
                     <div className="w-16"></div>
                 </div>
-
                 <div className="w-full h-px bg-[#444] mb-4"></div>
-
                 <div className="flex-1 overflow-y-auto px-4">
                     {loading && (
                         <p className="text-white text-center">Loading...</p>
@@ -114,40 +113,37 @@ const Comment: React.FC<PostProps> = ({ isOpen, onClose, postId }) => {
                             )}
                         </div>
                     )}
-
                     <div className="space-y-2">
                         {replies.length > 0 ? (
                             [...replies].reverse().map((reply, index) => (
-                                <div
-                                    key={index}
-                                    className="flex items-center justify-between gap-4 mb-4 ml-4"
-                                >
-                                               <div className="flex items-center gap-4">
+                                <div key={index} className="mb-6 ml-4">
+                                    <div className="flex items-start gap-4 scrollb">
+                                        <img
+                                            className="w-12 h-12 rounded-full object-cover"
+                                            src={
+                                                reply.userprofilpic ||
+                                                'https://cdn-icons-png.flaticon.com/512/149/149071.png'
+                                            }
+                                            alt="Reply User"
+                                        />
 
-                                    <img
-                                        className="w-12 h-12 rounded-full object-cover mr-4"
-                                        src={
-                                            reply.userprofilpic ||
-                                            'https://cdn-icons-png.flaticon.com/512/149/149071.png'
-                                        }
-                                        alt="Reply User"
-                                    />
-                                    <div className="flex-1">
-                                        <p className="font-bold text-white text-sm mb-1">
-                                            {reply.username}
-                                        </p>
-                                        <p className="text-white text-sm mb-1">
-                                            {reply.text}
-                                        </p>
-                                    </div>
+                                        <div className="flex-1">
+                                            <p className="font-bold text-white text-sm mb-1">
+                                                {reply.username || 'mimin_1234'}
+                                            </p>
+                                            <p className="text-white text-sm">
+                                                {reply.text}
+                                            </p>
+                                        </div>
                                     </div>
 
-                                    <div className="w-full h-px bg-[#444] mt-2"></div>
+                                    <div className="w-full h-px bg-[#444] mt-4"></div>
                                 </div>
                             ))
                         ) : (
                             <p className="text-white text-center mt-4">No replies yet.</p>
                         )}
+
                     </div>
                 </div>
             </div>

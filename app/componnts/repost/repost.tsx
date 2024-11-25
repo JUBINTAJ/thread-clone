@@ -3,11 +3,6 @@ import { useAppDispatch } from '@/app/hookkkk/Appdispatch';
 import React from 'react'
 import { fetchPosts } from '@/store/reducer/postssSlice';
 
-
-
-
-
-
 interface Repost {
   isopen:boolean;
   onclose:()=>void
@@ -16,27 +11,24 @@ interface Repost {
   username:string;
 }
 
-
  const repost :React.FC<Repost> =({isopen,onclose,postId,userprofilpic,username}) => {
 const dispatch=useAppDispatch()
 
 
 const handle = async()=>{
   const userId=localStorage.getItem('userid')
-   const Repost ={
+
+   const Repost = {
     userId :userId,
     userprofilpic :userprofilpic,
     username :username
-
   }
-  // console.log('user',username)
-
   try{
     await axiosInstance.post(`posts/repost/${postId}`, Repost)
     postId='';
 
-dispatch(fetchPosts())
-onclose()
+   dispatch(fetchPosts())
+   onclose()
   }catch(error){
     console.error('errorr',error)
   }

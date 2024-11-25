@@ -1,18 +1,4 @@
-// import React from 'react';
-// import Profile from '@/app/componnts/profile/profile';
 
-// const Layout = ({ children }: { children: React.ReactNode }) => {
-//   return (
-//     <div className="layout-wrapper">
-//       <Profile />
-//       <div className="layout-content">
-//         {children}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Layout;
 
 import Profile from '@/app/componnts/profile/profile';
 import React from 'react';

@@ -8,11 +8,11 @@ import { fetchsearch } from '@/store/reducer/usergetSlice';
 
 function Page() {
     const dispatch = useAppDispatch();
+    const { users ,user } = useAppSelector((state) => state.userget);
+
     const [search, setSearch] = useState<string>("");
     const [showSearch, setShowSearch] = useState<any[]>([]);
-
     const[Follow , setFollow]=useState(false)
-    const { users ,user } = useAppSelector((state) => state.userget);
     
 
     useEffect(() => {
@@ -20,9 +20,8 @@ function Page() {
         setShowSearch(
             users.filter((user) =>
                 user.username.toLowerCase().includes(search.toLowerCase())
-            )
+          )
         );
-        
     }, [dispatch,users]);
 
    
@@ -73,7 +72,6 @@ function Page() {
                                     <div className='mr-6 flex items-center'>
                                         {/* <button className='border border-[#3b3b3b] w-28 h-9 rounded-xl' onClick={hand}>{Follow ? 'unfollow': 'follow'}</button> */}
                                         <Followbtn userId={user._id}  />
-
                                     </div>
                                 </div>
                             ))
@@ -83,9 +81,7 @@ function Page() {
                     </div>
                 </div>
             </div>
-
             <div className='lay-3'>
-
             </div>
         </div>
     );

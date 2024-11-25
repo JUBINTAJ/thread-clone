@@ -20,6 +20,7 @@ import Likett from '@/Public/img/Vector (2).svg'
 
 
 function sidebar() {
+  const router = useRouter()
 
   const [onopen, setonopen] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,17 +31,8 @@ function sidebar() {
     setIsModalOpen(true);
   };
 
-  const router = useRouter()
-
-  const logout = (() => {
-    localStorage.clear()
-    router.push('/login')
-
-  })
   return (
     <div>
-
-
       <div className="lay-1">
         <nav className='p-4 w-full '>
           <div className='flex flex-col items-start justify-start'>
@@ -51,10 +43,8 @@ function sidebar() {
                 className='w-10'
                 />
             </div>
-
             <div className='flex flex-col space-y-4 items-center mt-56  ' >
               <Link href={'/main'}>
-
                 <div className='hover:bg-gray-900 p-2 rounded-xl transition duration-200'>
                   <Image src={home} alt='home' className='w-8' />
                 </div>
@@ -66,79 +56,43 @@ function sidebar() {
                 </div>
               </Link>
 
-
-
               <Link href={''} onClick={() => setonopen(true)}>
-
                 <div className='hover:bg-gray-900 p-2 rounded-xl transition duration-200 '>
                   <Image src={plus} alt='plus' className='w-8' />
                 </div>
               </Link>
+
               <Addpost isopen={onopen} onclose={() => setonopen(false)} >
                 <h1></h1>
               </Addpost>
 
-
-
-
-
-
-
-
-
-
               <Link href={"/main/activity"}>
-
               <div className='hover:bg-gray-900 p-2 rounded-xl transition duration-200' onClick={()=>setLiked(!liked)}>
                 <Image src={liked ? Likett : like} alt='like' className='w-8' />
               </div>
               </Link>
 
-
               <Link href={"/main/profile"}>
-
-
                 <div className='hover:bg-gray-900 p-2 rounded-xl transition duration-200'>
                   <Image src={user} alt='user' className='w-8' />
                 </div>
-
               </Link>
-
             </div>
 
 
-
-
-
-
-
-
             <div className='flex flex-col space-y-4 items-center mt-48'>
-
               <div className='hover:bg-gray-900 p-2 rounded-xl transition duration-200 mr-20'>
                 <Image src={pin} alt='user' className='w-10' />
               </div>
-
-
 
               <div className="flex items-center relative group cursor-pointer mr-20" >
                 <div className="hover:bg-gray-900 p-2 rounded-xl transition duration-200" onClick={handleLogoutClick}>
                   <Image src={menu} alt="user" className="w-8" />
                 </div>
-               
-
                 <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-
               </div>
-
-
             </div>
-
-
           </div>
-
-
-
         </nav>
       </div>
     </div>

@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react'
 import LikeButton from '@/app/componnts/likebutton/likebutton'
 
 const post = () => {
+
     const dispatch = useAppDispatch()
     const [posts, setPosts] = useState<Post[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -33,9 +34,6 @@ const post = () => {
         reposts: string[];
         postById: string;
     }
-
-
-
     const fetchputpost = async () => {
         try {
             const userId = localStorage.getItem('userid')
@@ -43,7 +41,6 @@ const post = () => {
             if (userId) {
                 const res = await axiosInstance.get(`posts/${userId}`)
                 setPosts(res.data.post);
-
             }
         } catch (error) {
             console.log('error', error)
@@ -53,10 +50,7 @@ const post = () => {
     useEffect(() => {
         fetchputpost()
     }, [])
-
-
-
-
+    
 
     const deletepost = async (postId: string) => {
         try {
@@ -65,12 +59,7 @@ const post = () => {
         } catch (error) {
             console.log('error in delete post', error)
         }
-
-
     }
-
-
-
 
     return (
         <div className="flex items-center justify-center h-screen mt-20">
@@ -80,13 +69,10 @@ const post = () => {
                         <div key={post.id} className="flex flex-col">
                             <div className="flex items-center mt-6">
                                 <div>{post.userProfilePic}</div>
-
-
                                 <div className="ml-4">
                                     <h3 className="text-white">{post.username}</h3>
                                 </div>
                                 <div className="ml-auto">
-                                    {/* <MdDelete className="text-white text-2xl" onClick={() => toggleDropdown(post._id)} /> */}
                                     {selectedPostId === post.id && (
                                         <button className="text-white text-sm ml-4" onClick={() => deletepost(post.id)}>Delete</button>
                                     )}
@@ -100,9 +86,6 @@ const post = () => {
                                     postId={post.id}
                                     likedUser={post.likes}
                                 />
-                        
-                                {/* <ReplyButton replyCount={post.replies.length} />
-                                <RepostButton repostCount={post.reposts.length} /> */}
                             </div>
                         </div>
                     ))}

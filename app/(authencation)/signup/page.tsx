@@ -10,8 +10,10 @@ import axiosInstance from '@/app/axios/axiosinstance';
 
 
 const Page: React.FC = () => {
-    const [loading, setloading] = useState(false)
+    const router = useRouter();
 
+
+    const [loading, setloading] = useState(false)
     const [name, setname] = useState("")
     const [username, setusername] = useState("")
     const [email, setemail] = useState("")
@@ -23,33 +25,24 @@ const Page: React.FC = () => {
 
 
 
-    const router = useRouter();
 
     const signUser = (
         async (userdata: { name: string, username: string, email: string, phone: string, password: string}) => {
-
             try {
                 const response = await axiosInstance.post('users/signup', userdata)
                 setstatus('success')
                 return response.data
-                
             } catch (error: any) {
                 console.log(error.response.data.message || 'all error are occared')
                 setstatus('failed')
             }
-
-
         }
-
-
     )
  
     const handling = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setloading(true)
         seterror(null)
-
-
        const res= await  signUser({ name, username, email, phone, password })
             if (status === 'success') {
 
@@ -58,10 +51,6 @@ const Page: React.FC = () => {
             
         setloading(false)
     }
-
-
-
-
 
 
 
@@ -133,51 +122,3 @@ export default Page;
 
 
 
-
-
-// import { useRouter } from 'next/navigation';
-// import Loading from '@/app/componnts/loading/loading';
-// import axiosInstance from '@/app/axios/axiosinstance';
-// import Sign from '@/app/componnts/form/signinForm'
- 
-//  export const signUser = (
-//     async (userdata: { name: string, username: string, email: string, phone: string, password: string}) => {
-
-//         try {
-//             const response = await axiosInstance.post('users/signup', userdata)
-//             return response.data
-            
-//         } catch (error: any) {
-//             console.log(error.response.data.message || 'all error are occared')
-//         }
-
-
-//     }
-
-
-// )
-
-
-// const Page: React.FC = () => {
-
-
-
-
-   
-
-
-
-
-
-
-
-//     return (
-
-//         <div>
-//             <Sign/>
-//         </div>
-      
-//     );
-// };
-
-// export default Page;

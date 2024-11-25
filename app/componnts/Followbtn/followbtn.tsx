@@ -9,6 +9,7 @@ interface FollowBtnProps {
 }
 
 const FollowBtn: React.FC<FollowBtnProps> = ({ userId }) => {
+
     const [isFollowing, setIsFollowing] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);  
 
@@ -20,6 +21,7 @@ const FollowBtn: React.FC<FollowBtnProps> = ({ userId }) => {
             const res = await axiosInstance.get(`users/${userId}`);
             const user = res.data.user;
             setIsFollowing(user.followed);
+
         } catch (error) {
             console.log('Error fetching user data:', error);
         }
@@ -30,9 +32,7 @@ const FollowBtn: React.FC<FollowBtnProps> = ({ userId }) => {
             console.log('User not logged in');
             return;
         }
-
         setLoading(true);  
-
         try {
             if (isFollowing) {
                 await axiosInstance.post(`users/unfollow/${userId}`, { userUnfollowId: senderId });

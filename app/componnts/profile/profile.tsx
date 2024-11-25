@@ -6,7 +6,7 @@ import EditProfileModal from '@/app/componnts/editprofile/editprofile';
 import { useAppSelector, useAppDispatch } from '@/app/hookkkk/Appdispatch';
 import { fetchPostByUserId } from '@/store/reducer/postSlice';
 import Link from 'next/link';
-import Followers from '@/app/componnts/followers/followers' 
+import Followers from '@/app/componnts/followers/followers'
 
 const ProfilePage: React.FC = () => {
     const [user, setUser] = useState<any>(null);
@@ -41,11 +41,9 @@ const ProfilePage: React.FC = () => {
         fetchData();
     }, [dispatch]);
 
-
-    
-  const handleLogoutClick = () => {
-    setIsModal(true);
-  };
+    const handlefollwersClick = () => {
+        setIsModal(true);
+    };
 
 
     if (status === 'failed') {
@@ -71,8 +69,8 @@ const ProfilePage: React.FC = () => {
                             </div>
                         </div>
                         <p className="text-gray-200 mb-2">{user.bio}</p>
-                        <p className="text-gray-400 mb-4" onClick={handleLogoutClick} >{user.followers.length} Followers</p>
-                        <Followers isOpen={isModal} onClose={()=>setIsModal(false)} />
+                        <p className="text-gray-400 mb-4" onClick={handlefollwersClick} >{user.followers.length} Followers</p>
+                        <Followers isOpen={isModal} onClose={() => setIsModal(false)} />
                         <button
                             className="border border-[#554e4e] w-full h-10 rounded-xl hover:text-black hover:bg-white mt-4"
                             onClick={() => setIsModalOpen(true)}
@@ -93,13 +91,10 @@ const ProfilePage: React.FC = () => {
                         Reposts
                     </Link>
                 </div>
-
-                <div className="w-full h-px bg-[#554e4e] mt-4 "></div>
-
+                <div className="w-[810px] h-px bg-[#554e4e] mt-4 -ml-5 "></div>
                 <div className="mt-5">
                 </div>
             </div>
-
             {isModalOpen && (
                 <EditProfileModal isopen={isModalOpen} onclose={() => setIsModalOpen(false)}>
                     <h1>Edit Profile</h1>

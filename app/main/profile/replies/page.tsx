@@ -102,7 +102,6 @@ const Page = () => {
                 className="image-main border border-[#3b3b3b] mt-4 rounded-lg w-full max-w-sm object-cover"
               />
             )}
-
             <div className="flex items-center gap-4 mt-4">
               <LikeButton
                 initialLike={item.likes.length}

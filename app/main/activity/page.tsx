@@ -17,7 +17,6 @@ interface Notification {
   description: string;
   senderuserId: User;
 }
-console.log('kooii')
 async function getServerNotifications(): Promise<Notification[]> {
   const cookieStore = cookies();
   const userId = cookieStore.get('userId')?.value;
@@ -25,7 +24,6 @@ async function getServerNotifications(): Promise<Notification[]> {
   if (!userId) {
     return [];
   }
-
   try {
     const res = await axiosInstance.get(`users/notification/${userId}`);
     return res.data.notification || [];
@@ -36,6 +34,7 @@ async function getServerNotifications(): Promise<Notification[]> {
 }
 
 export default async function Page() {
+
   const notifications = await getServerNotifications();
 
   return (
@@ -77,3 +76,5 @@ export default async function Page() {
     </div>
   );
 }
+
+

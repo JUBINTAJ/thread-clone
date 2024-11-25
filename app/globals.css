@@ -159,17 +159,14 @@ nav ul li a:hover::after{
 }
 .line-container {
   display: flex;
-  justify-content: ;
-  align-items: ; 
-  margin-left: 4px;
+  margin-left: 5px;
   margin-bottom: 10px 
 }
 
-/* Vertical Line Style */
 .vertical-line {
-  width: 2px; /* Width of the line */
-  height: 150px; /* Adjust the height as needed */
-  background-color: #3b3b3b; /* Line color */
+  width: 2px; 
+  height: 200px;
+  background-color: #3b3b3b; 
   top: 0;
   bottom: 0;
 }
@@ -179,5 +176,5 @@ nav ul li a:hover::after{
   justify-content: center;
   align-items: center;
   color: aliceblue;
-  height: 920px;
+  height: 940px;
 }

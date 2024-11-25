@@ -19,30 +19,27 @@ interface EditProfileModalProps {
 const EditProfileModal: React.FC<EditProfileModalProps> = ({ isopen, onclose, children }) => {
   const dispatch = useAppDispatch();
   const { userupdate } = useAppSelector((state) => state.user);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);  
+
+
   const [name, setName] = useState<string>('');
   const [username, setUsername] = useState<string>('');
   const [bio, setBio] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [profile, setProfile] = useState<string>(''); 
   const [loading, setLoading] = useState<boolean>(false);
-  const fileInputRef = useRef<HTMLInputElement | null>(null);  
 
-
-  // useEffect(()=>{
-  //   dispatch(fetchUser())
-  // },[dispatch])
+  
 
   useEffect(() => {
     if (isopen) {
       const fetchUserData = async () => {
         const userId = localStorage.getItem('userid');
-
         if (userId) {
           try {
             setLoading(true);
             const res = await axiosInstance.get(`users/${userId}`);
             const userdata = res.data.user;
-
 
             setName(userdata.name);
             setUsername(userdata.username); 
@@ -61,31 +58,13 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ isopen, onclose, ch
         }
   }, [isopen]);
 
-
-
-
-
-
-  // const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = e.target.files?.[0];
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       setProfile(reader.result as string);  
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
-
-
-
   const handle = async () => {
     const userId = localStorage.getItem('userid');
     if (userId) {
       try {
         setLoading(true);
         console.log('Profile data before update:', { name, username, bio, email,profile});
-  
+        console.log('profile',profile)
         const res = await axiosInstance.patch(`users/${userId}`, {
           name,
           username,
@@ -93,9 +72,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ isopen, onclose, ch
           email,
           profilePic: profile, 
         });
-  
         dispatch(userupdateee(res.data));
-  
         setLoading(false);
         onclose();
       } catch (error) {
@@ -106,12 +83,10 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ isopen, onclose, ch
   };
   
 
-
-
   if (!isopen) return null;
 
   return (
-    <div className="fixed inset-0 w-full h-full bg-black bg-opacity-70 flex justify-center items-center z-[1000]" onClick={onclose}>
+    <div className="fixed inset-0 w-full h-full bg-black bg-opacity-70 flex justify-center items-center z-[1000]">
       <div className="bg-[#2C2C2C] p-6 md:p-8 w-[550px] ml-14 rounded-lg shadow-lg relative animate-fadeIn border border-[#444]">
         <div className="flex justify-between items-center mb-4">
           <button onClick={onclose} className="text-gray-400 hover:text-white transition">
@@ -158,12 +133,13 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ isopen, onclose, ch
                   accept="image/*"
                   className="absolute inset-0 opacity-0 cursor-pointer"
                   onChange={(e) => {
+                    
                     const file = e.target.files?.[0];
                     if (file) {
                       const reader = new FileReader();
                       reader.onloadend = () => {
                         setProfile(reader.result as string);  
-                    }
+                       }
                     reader.readAsDataURL(file);
 
                   }}

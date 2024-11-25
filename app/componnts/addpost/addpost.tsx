@@ -7,6 +7,8 @@ import Loading from '@/app/componnts/loading/loading';
 import { fetchUser } from '@/store/reducer/usergetSlice';
 import draft from '@/Public/img/draft.png';
 import Image from 'next/image';
+import iconsstore from '@/app/componnts/icons/icons'
+
 
 interface PostProps {
     isopen: boolean;
@@ -15,18 +17,19 @@ interface PostProps {
 }
 
 const AddPost: React.FC<PostProps> = ({ isopen, onclose, children }) => {
+
+    const dispatch = useAppDispatch();
+    const { icon } = iconsstore()
+
     const [postcontent, setpostcontent] = useState<string>('');
     const [postimage, setpostimage] = useState<any>(null);
-    // const[postById,setpostByid]=useState<string>("")
     const [prev, setprev] = useState<string | null>(null);
     const [loading, setloading] = useState(false);
-    const dispatch = useAppDispatch();
+
     const { user } = useAppSelector((state) => state.userget);
 
     useEffect(() => {
-    
-            dispatch(fetchUser());
-        
+        dispatch(fetchUser());
     }, [dispatch]);
 
     const postsubmit = async () => {
@@ -40,27 +43,22 @@ const AddPost: React.FC<PostProps> = ({ isopen, onclose, children }) => {
             return;
         }
         setloading(true);
-     
+
         const newpost = new FormData();
         newpost.append('userId', userId);
         newpost.append('text', postcontent);
         newpost.append('image', postimage);
-     
-        
 
         try {
-            console.log("add post",newpost)
-           const res= await axiosInstance.post('posts', newpost);
-            console.log('error',res)
+            const res = await axiosInstance.post('posts', newpost);
+            console.log('error', res)
             onclose();
             dispatch(fetchPosts());
-
         } catch (error) {
             console.log('Error adding new post', error);
         } finally {
             setloading(false);
         }
-
         setpostcontent('');
         setpostimage(null);
         setprev(null);
@@ -86,8 +84,8 @@ const AddPost: React.FC<PostProps> = ({ isopen, onclose, children }) => {
     if (!isopen) return null;
 
     return (
-        <div className="fixed inset-0 w-full h-full bg-black bg-opacity-70 flex justify-center items-center z-[1000]" onClick={onclose}>
-            <div className="bg-[#2C2C2C] p-6 md:p-8 w-[550px]  ml-14 rounded-lg shadow-lg relative animate-fadeIn border border-[#444]">
+        <div className="fixed inset-0 w-full h-full bg-black bg-opacity-70 flex justify-center items-center z-[1000] ml-2 ">
+            <div className="bg-[#181818] p-6 md:p-8 w-[630px] h-[280px] max-h-[80vh] ml-14 rounded-2xl shadow-lg relative animate-fadeIn border border-[#444] overflow-y-auto scrollb">
                 <div className='flex justify-between items-center mb-4'>
                     <button onClick={onclose} className="text-gray-400 hover:text-white transition">Cancel</button>
                     <p className="text-center text-white font-semibold text-lg">New Thread</p>
@@ -95,41 +93,66 @@ const AddPost: React.FC<PostProps> = ({ isopen, onclose, children }) => {
                         <Image src={draft} alt='Draft Icon' className='w-8 h-8' />
                     </div>
                 </div>
-                <div className="w-full h-px bg-[#444] mb-4"></div>
+                <div className="w-[810px] h-px bg-[#444] mb-4  -ml-8 "></div>
                 <div>
                     {user && (
                         <div key={user.id} className="flex items-center mb-4">
-                            <img className='w-10 h-10 rounded-full border-2 border-black' src={user.profilePic || 'https://cdn-icons-png.flaticon.com/512/149/149071.png'} alt="Profile" />
+                            <img className='w-10 h-10 rounded-full ' src={user.profilePic || 'https://cdn-icons-png.flaticon.com/512/149/149071.png'} alt="Profile" />
+                            <div className='ml-3 mb-5'>
+                                {user.username}
+                            </div>
+
                         </div>
                     )}
+                    {/* <div className="line-container">
+                        <div className="vertical-line h-7"></div>
+                    </div> */}
                     <div className="text-gray-200">
                         {children}
-                        <div className="flex flex-col gap-4 mt-4">
-                            <textarea
-                                placeholder="Write a post"
-                                value={postcontent}
-                                onChange={postchange}
-                                className="bg-[#2C2C2C] border border-[#444] outline-none w-full resize-none p-3 rounded-md text-white focus:ring-2 focus:ring-blue-500 transition"
-                                rows={4}
-                            />
+                        <div className="flex flex-col gap-4 -mt-10 ">
+                            <div className='ml-11  '>
+                                <textarea
+                                    placeholder="what's new?"
+                                    value={postcontent}
+                                    onChange={postchange}
+                                    className="bg-[#181818]  outline-none w-full resize-none p-3 rounded-md text-white text-sm "
+                                // rows={4}
+                                />
+                            </div>
+                            <div className="flex gap-3 -mt-9 ml-14  ">
+                                <div className="relative">
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={imagechange}
+                                        className="absolute inset-0 opacity-0 "
+                                    />
+                                    <label className="">
+                                        <div className="w-5">
+                                            {icon.images}
+                                        </div>
+                                    </label>
+                                </div>
+                                <div className="w-5">
+                                    {icon.gif}
+                                </div>
+                                <div className="w-5">
+                                    {icon.hash}
+                                </div>
+                                <div className="w-5">
+                                    {icon.poll}
+                                </div>
+                            </div>
                             {prev && (
                                 <div className="w-full max-h-[300px] overflow-hidden rounded-md">
-                                    <img src={prev} alt="Preview" className="w-full h-auto object-cover rounded-md" />
+                                    <img src={prev} alt="Preview" className="w-full  object-cover rounded-md  " />
                                 </div>
                             )}
-                            <div className="relative">
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={imagechange}
-                                    className="absolute inset-0 opacity-0 cursor-pointer"
-                                />
-                                <label className="flex items-center text-gray-300 cursor-pointer hover:text-white">
-                                    <button className="ml-2 mt-5 border border-black text-white-500  hover:text-white transition h-10 w-40 rounded-lg">Upload Image</button>
-                                </label>
-                            </div>
                         </div>
+
+
                         <div className="mt-3 flex justify-end">
+                        <div className=' text-gray-500 mr-72 -mb-3'>Anyone can reply & quote</div>
                             <button onClick={postsubmit} disabled={loading} className="bg-black text-white rounded-lg px-4 py-2 transition ">
                                 {loading ? <Loading /> : 'Post'}
                             </button>
@@ -138,7 +161,7 @@ const AddPost: React.FC<PostProps> = ({ isopen, onclose, children }) => {
                 </div>
             </div>
         </div>
-    );
+    )
 };
 
 export default AddPost;

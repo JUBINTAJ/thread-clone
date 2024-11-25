@@ -1,9 +1,7 @@
 'use client';
 import Image from 'next/image';
-
 import axiosInstance from '@/app/axios/axiosinstance';
 import { useAppDispatch, useAppSelector } from '@/app/hookkkk/Appdispatch';
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import LikeButton from '@/app/componnts/likebutton/likebutton';
 import Addpost from '@/app/componnts/addpost/addpost';
@@ -17,54 +15,46 @@ import Reply from '@/app/componnts/Reply/Reply'
 
 const PostPage = () => {
   const dispatch = useAppDispatch();
+  const { users, user } = useAppSelector((state) => state.userget);
+
   const [onopen, setonopen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-
-  const handleLogoutClick = () => {
-    setIsModalOpen(true);
-  };
-
-
-
-
-
-  
-    type Reply = {
-      id: string;
-      userId: string;
-      userProfilePic: string;
-      username: string;
-      text: string;
-    };
-  
-    type Post = {
-      id: string;
-      userProfilePic: string;
-      username: string;
-      text: string;
-      image: string;
-      createdOn: string;
-      replies: Reply[];
-      likes: string[];
-      reposts: string[];
-      postById: string;
-    };
-  
-
-
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedPostId, setSelectedPostId] = useState<string | null>(null);
   const [selectcmt, setselectcmt] = useState<any>(null);
   const [repostData, setRepostData] = useState<any>(null);
-  const[reply ,setreply]=useState<any>(null)
-
+  const [reply, setreply] = useState<any>(null)
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [username, setUserName] = useState<string>("");
 
-  const { users, user } = useAppSelector((state) => state.userget);
+
+  
+  type Reply = {
+    id: string;
+    userId: string;
+    userProfilePic: string;
+    username: string;
+    text: string;
+  };
+
+  type Post = {
+    id: string;
+    userProfilePic: string;
+    username: string;
+    text: string;
+    image: string;
+    createdOn: string;
+    replies: Reply[];
+    likes: string[];
+    reposts: string[];
+    postById: string;
+  };
+
+
+
+
 
   useEffect(() => {
     const userId = localStorage.getItem('userid');
@@ -76,6 +66,7 @@ const PostPage = () => {
       }
     }
   }, [users]);
+
 
   const fetchputpost = async () => {
     try {
@@ -92,16 +83,8 @@ const PostPage = () => {
   useEffect(() => {
     fetchputpost();
   }, []);
-
-  // const deletepost = async (postId: string) => {
-  //   try {
-  //     await axiosInstance.delete(`posts/${postId}`);
-  //     setPosts((prevPost) => prevPost.filter((post) => post.id !== postId));
-  //   } catch (error) {
-  //     console.log('error in delete post', error);
-  //   }
-  // };
-
+  
+  
   const openmodal = (post: any) => {
     setselectcmt(post);
   };
@@ -112,12 +95,9 @@ const PostPage = () => {
       userProfilePic: repost.postById?.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png",
       username: repost.postById?.username || 'Unknown User',
     });
-
-
-    const openmodalreply=(post :any)=>{
-      setreply(post)
-    }
-  
+  };
+  const handleLogoutClick = () => {
+    setIsModalOpen(true);
   };
 
   return (
@@ -147,36 +127,25 @@ const PostPage = () => {
             <div key={post.id} className="flex flex-col p-6 border border-[#3b3b3b] ">
               <div className="flex items-center">
                 <img
-                  src={post.userProfilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png" }
+                  src={post.userProfilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
                   alt="User Profile"
                   className="object-cover w-10 h-10 rounded-full"
                 />
                 <div className="ml-4   flex justify-between items-start">
-                  <h3 className="text-white font-semibold">{post.username  || 'mimin_1234' }</h3>
+                  <h3 className="text-white font-semibold">{post.username || 'mimin_1234'}</h3>
                   <h1 className="text-gray-500 text-lg ml-[400px] " onClick={handleLogoutClick} >...</h1>
-                      
-                      <Modal isOpen={isModalOpen}  onClose={()=> setIsModalOpen(false)} postId={post.id}  />
+
+                  <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} postId={post.id} />
+
                 </div>
-                {/* <div className="ml-auto">
-                  {selectedPostId === post.id && (
-                    <button
-                      className="text-white text-sm px-3 py-1 bg-red-600 rounded hover:bg-red-700 transition-colors"
-                      onClick={() => deletepost(post.id)}
-                    >
-                      Delete
-                    </button>
-                  )}
-                </div> */}
-                
               </div>
               <p className="text-left text-gray-300 mt-4">{post.text}</p>
               {post.image && (
                 <img
                   src={post.image}
                   alt="Post"
-                  className="image-main  border border-[#3b3b3b]" 
-                  // onClick={()=>openmodalreply(post)} 
-                  />
+                  className="image-main  border border-[#3b3b3b]"
+                />
               )}
               <div className="flex items-center gap-4 mt-4">
                 <LikeButton
@@ -185,14 +154,14 @@ const PostPage = () => {
                   likedUser={post.likes}
                 />
                 <div
-                 className="w-[60px] h-[30px] flex justify-center items-center rounded-[20px] gap-1 hover:bg-[rgb(56,52,52)] transition-all duration-500 ease-in"
+                  className="w-[60px] h-[30px] flex justify-center items-center rounded-[20px] gap-1 hover:bg-[rgb(56,52,52)] transition-all duration-500 ease-in"
                   onClick={() => openmodal(post)}
                 >
                   <Image src={comment} alt="Comment" width={20} height={20} />
                   <span className="text-sm ml-2">{post.replies.length}</span>
                 </div>
                 <div
-                 className="w-[60px] h-[30px] flex justify-center items-center rounded-[20px] gap-1 hover:bg-[rgb(56,52,52)] transition-all duration-500 ease-in"
+                  className="w-[60px] h-[30px] flex justify-center items-center rounded-[20px] gap-1 hover:bg-[rgb(56,52,52)] transition-all duration-500 ease-in"
                   onClick={() => opennmodal(post)}
                 >
                   <Image src={repost} alt="Repost" width={20} height={20} />
@@ -213,20 +182,17 @@ const PostPage = () => {
           />
         )}
 
+        {reply && (
+          <Reply
+            isOpen={!!reply}
+            onClose={() => setreply(null)}
+            postId={reply._id}
+            userprofilpic={user?.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
+            username={reply.username}
 
 
-{reply && (
-        <Reply  
-        isOpen={!!reply}
-        onClose={()=>setreply(null)}
-        postId={reply._id}
-        userprofilpic={user?.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png" }
-        username={reply.username }
-
-
-        />
-      )}
-
+          />
+        )}
 
         {repostData && (
           <Repost
@@ -237,9 +203,6 @@ const PostPage = () => {
             username={repostData.username}
           />
         )}
-
-
-   
       </div>
     </div>
   );
