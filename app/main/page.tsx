@@ -103,8 +103,8 @@ function page() {
       <div className="lay-2 mr-24 ">
         <div className=''></div>
         <p className="text-center pt-8 prata-regular flex items-center justify-center">
-      For you
-      <span className="inline-flex items-center w-16 ml-2 -mb-7 " onClick={handleLogoutClick}>
+           For you
+      <span className="inline-flex items-center w-16 ml-2 -mb-12 " onClick={handleLogoutClick}>
         <Image src={arrow} alt="" />
       </span>
     </p>
@@ -132,8 +132,8 @@ function page() {
               </p>
             </div>
           )}
-          {/* (
-  <Mainloading />
+          
+  {/* <Mainloading />
 ) : ( */}
           <>
             {posts.map((post) => (
@@ -182,6 +182,7 @@ function page() {
         </div>
       </div>
       <div>
+
 
         {selectcmt && (
           <Comment

@@ -87,7 +87,7 @@ const Page = () => {
   return (
     <div className='-mt-14'>
       {reposts.length > 0 ? (
-        reposts.map((item) => (
+        [...reposts].reverse().map((item) => (
           <div key={item._id} className="flex flex-col p-6 border border-[#3b3b3b]">
             <div className="flex items-center">
               <img
