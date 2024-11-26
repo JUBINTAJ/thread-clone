@@ -7,6 +7,7 @@ import { useAppSelector, useAppDispatch } from '@/app/hookkkk/Appdispatch';
 import { fetchPostByUserId } from '@/store/reducer/postSlice';
 import Link from 'next/link';
 import Followers from '@/app/componnts/followers/followers'
+import { fetchsearch } from '@/store/reducer/usergetSlice';
 
 const ProfilePage: React.FC = () => {
     const [user, setUser] = useState<any>(null);
@@ -16,6 +17,10 @@ const ProfilePage: React.FC = () => {
 
     const dispatch = useAppDispatch();
     const { post } = useAppSelector((state) => state.post);
+    
+    useEffect(()=>{
+        dispatch(fetchsearch())
+    },[dispatch])
 
     useEffect(() => {
         const fetchData = async () => {

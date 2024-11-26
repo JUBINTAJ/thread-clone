@@ -8,7 +8,7 @@ import draft from '@/Public/img/draft.png';
 import Image from 'next/image';
 
 import { userupdateee } from '@/store/reducer/userSlice';
-import { fetchUser } from '@/store/reducer/usergetSlice';
+import { fetchsearch, fetchUser } from '@/store/reducer/usergetSlice';
 
 interface EditProfileModalProps {
   isopen: boolean;
@@ -74,7 +74,9 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ isopen, onclose, ch
         });
         dispatch(userupdateee(res.data));
         setLoading(false);
+        
         onclose();
+        dispatch(fetchsearch())
       } catch (error) {
         console.log('Error updating user data:', error);
         setLoading(false);

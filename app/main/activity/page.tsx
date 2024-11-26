@@ -80,6 +80,7 @@
 //     </div>
 //   );
 // }
+
 'use client';
 
 import React, { useEffect, useState } from 'react';
@@ -112,7 +113,7 @@ const Page: React.FC = () => {
   useEffect(() => {
     const fetchNotifications = async () => {
       const userId = localStorage.getItem('userid');
-
+      
       if (!userId) {
         setError('User ID is missing in localStorage');
         setStatus('failed');
@@ -125,17 +126,18 @@ const Page: React.FC = () => {
         const res = await axiosInstance.get(`users/notification/${userId}`);
         
         console.log('Fetched Notifications:', res.data);
-
-        if (Array.isArray(res.data)) {
+        
+        if (Array.isArray(res.data) && res.data.length > 0) {
           setNotification(res.data);
+          setStatus('success');
         } else {
-          setError('Unexpected response format');
+          setError('No notifications found for this user');
           setStatus('failed');
         }
-        setStatus('success');
       } catch (error: any) {
         setError('Error fetching notifications');
         setStatus('failed');
+        console.error('Error fetching notifications:', error); 
       }
     };
 
