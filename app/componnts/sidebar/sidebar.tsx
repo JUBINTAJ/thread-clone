@@ -26,7 +26,7 @@ function Sidebar() {
   return (
     <div className="flex flex-col md:flex-row">
       {/* Desktop Sidebar */}
-      <div className="hidden lg:flex lg:flex-col lg:w- p-4 lg:h-screen  overflow-y-auto">
+      <div className="hidden lg:flex lg:flex-col  p-4 lg:h-screen  overflow-y-auto">
         <nav className="flex flex-col items-start justify-start w-full">
           <div className="flex flex-col items-start justify-start">
             <div className="mb-4">
@@ -51,7 +51,7 @@ function Sidebar() {
                 </div>
               </Link>
 
-              <Addpost isopen={onopen} onclose={() => setonopen(false)} />
+              <Addpost isopen={onopen} onclose={() => setonopen(false)} ><h1></h1></Addpost>
 
               <Link href="/main/activity">
                 <div
@@ -95,19 +95,19 @@ function Sidebar() {
       <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-black text-white p-4 flex justify-between items-center">
         <Link href="/main">
           <div className="hover:bg-gray-900 p-2 rounded-xl transition duration-200">
-            <Image src={home} alt="home" className="w-8" />
+            <Image src={home} alt="home" className="w-14" />
           </div>
         </Link>
 
         <Link href="/main/search">
           <div className="hover:bg-gray-900 p-2 rounded-xl transition duration-200">
-            <Image src={search} alt="search" className="w-8" />
+            <Image src={search} alt="search" className="w-14" />
           </div>
         </Link>
 
         <Link href={""} onClick={() => setonopen(true)}>
           <div className="hover:bg-gray-900 p-2 rounded-xl transition duration-200">
-            <Image src={plus} alt="plus" className="w-8" />
+            <Image src={plus} alt="plus" className="w-14" />
           </div>
         </Link>
 
@@ -116,13 +116,13 @@ function Sidebar() {
             className="hover:bg-gray-900 p-2 rounded-xl transition duration-200"
             onClick={() => setLiked(!liked)}
           >
-            <Image src={liked ? Likett : like} alt="like" className="w-8" />
+            <Image src={liked ? Likett : like} alt="like" className="w-14" />
           </div>
         </Link>
 
         <Link href="/main/profile">
           <div className="hover:bg-gray-900 p-2 rounded-xl transition duration-200">
-            <Image src={user} alt="user" className="w-8" />
+            <Image src={user} alt="user" className="w-14" />
           </div>
         </Link>
       </div>

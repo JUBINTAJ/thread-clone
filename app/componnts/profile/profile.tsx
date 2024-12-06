@@ -96,7 +96,7 @@ const ProfilePage: React.FC = () => {
                         Reposts
                     </Link>
                 </div>
-                <div className="w-[810px] h-px bg-[#554e4e] mt-4 -ml-5 "></div>
+                <div className="w-[630px] h-px bg-[#554e4e] mt-4 -ml-5 "></div>
                 <div className="mt-5">
                 </div>
             </div>

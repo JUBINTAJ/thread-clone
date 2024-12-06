@@ -80,7 +80,6 @@
 //     </div>
 //   );
 // }
-
 'use client';
 
 import React, { useEffect, useState } from 'react';
@@ -127,7 +126,7 @@ const Page: React.FC = () => {
         
         console.log('Fetched Notifications:', res.data);
         
-        if (Array.isArray(res.data) && res.data.length > 0) {
+        if (res.data.length > 0) {
           setNotification(res.data);
           setStatus('success');
         } else {
@@ -143,6 +142,9 @@ const Page: React.FC = () => {
 
     fetchNotifications();
   }, []);
+
+  // Check the current status
+  console.log("Current status:", status);
 
   if (status === 'loading') {
     return <p>Loading notifications...</p>;
@@ -166,21 +168,27 @@ const Page: React.FC = () => {
               <p>No notifications available.</p>
             ) : (
               <ul>
-                {notification.map((notif) => (
-                  <li key={notif._id}>
-                    <div>
-                      <img
-                        src={notif.senderUserId.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
-                        alt={notif.senderUserId.name}
-                        width={50}
-                        height={50}
-                      />
-                      <strong>{notif.senderUserId.name}</strong>
-                      <p>{notif.description}</p>
-                    </div>
-                    <div>{new Date(notif.createdAt).toLocaleString()}</div>
-                  </li>
-                ))}
+                {notification.map((notif) => {
+                  console.log("Rendering notification:", notif); 
+                  return (
+                    <li key={notif._id}>
+                      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+                        <img
+                          src={notif.senderUserId.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
+                          alt={notif.senderUserId.name}
+                          width={50}
+                          height={50}
+                          style={{ borderRadius: '50%' }}
+                        />
+                        <div style={{ marginLeft: '10px' }}>
+                          <strong>{notif.senderUserId.name}</strong>
+                          <p>{notif.description}</p>
+                          <div>{new Date(notif.createdAt).toLocaleString()}</div> {/* Optional: Display date */}
+                        </div>
+                      </div>
+                    </li>
+                  );
+                })}
               </ul>
             )}
           </div>

@@ -14,7 +14,7 @@ type Reply = {
   userId: string;
   userProfilePic: string;
   username: string;
-  text: string;
+  text: string;      
 };
 
 interface Replys {
